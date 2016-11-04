@@ -100,6 +100,9 @@ void StartScene::menuCloseCallback(Ref* pSender) {
 #endif
 }
 
+void StartScene::onHelpCloseCallBack() {
+}
+
 void StartScene::menuSelectCallback(Ref* pSender) {
 	auto item = (MenuItemImage*)pSender;
 	int tag = item->getTag();
