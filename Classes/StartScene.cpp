@@ -3,6 +3,7 @@
 #include "IntroLayer.h"
 #include "ThemeLayer.h"
 #include "HelpLayer.h"
+#include "LevelLayer.h"
 
 const int numFig = 5;
 const double levelPosX[] = { 100, 190, 340, 550, 770 };
@@ -49,4 +50,9 @@ void StartScene::onSettingCallBack() {
 }
 
 void StartScene::onSelectThemeCallBack(int themen) {
+	LevelLayer* level = LevelLayer::createWithTheme(this, themen);
+	this->addChild(level);
+}
+
+void StartScene::onSelectLevelCallBack(int theme, int level) {
 }

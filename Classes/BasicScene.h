@@ -12,6 +12,7 @@ public:
 	virtual void onHelpCloseCallBack() = 0;
 	virtual void onSettingCallBack() = 0;
 	virtual void onSelectThemeCallBack(int themen) = 0;
+	virtual void onSelectLevelCallBack(int theme, int level) = 0;
 };
 
 #endif
