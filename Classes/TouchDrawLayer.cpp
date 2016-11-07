@@ -55,13 +55,13 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa) {
 	box->setPosition(30.0 / 1944 * visibleSize.width, 30.0 / 1330 * visibleSize.height);
 	this->addChild(box, 1);
 
-	finishItem = MenuItemImage::create("Finish.png", "FinishHover.png", CC_CALLBACK_1(TouchDrawLayer::menuFinishCallback, this));
+	finishItem = MenuItemImage::create("Finish.png", "FinishHover.png", CC_CALLBACK_1(TouchDrawLayer::onDoneCallback, this));
 	float finishItemSC = 337.0 / 1944 * visibleSize.width / finishItem->getContentSize().width;
 	finishItem->setScale(finishItemSC);
 	finishItem->setAnchorPoint(Vec2(1, 0));
 	finishItem->setPosition((1 - 40.0 / 1944)*visibleSize.width, 30.0 / 1330 * visibleSize.height);
 
-	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::menuExitCallback, this));
+	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onExitCallback, this));
 	float closeItemSC = 122.0 / 1944 * visibleSize.width / closeItem->getContentSize().width;
 	closeItem->setScale(closeItemSC);
 	closeItem->setAnchorPoint(Vec2(1, 1));
@@ -84,14 +84,14 @@ std::vector<Vec2> TouchDrawLayer::getPoints() {
 	return points;
 }
 
-void TouchDrawLayer::menuExitCallback(Ref* pSender) {
+void TouchDrawLayer::onExitCallback(Ref* pSender) {
 	Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
 }
 
-void TouchDrawLayer::menuFinishCallback(Ref * sender) {
+void TouchDrawLayer::onDoneCallback(Ref * sender) {
 	//gameScene->menuFinishCallback();
 }
 

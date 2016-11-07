@@ -13,7 +13,8 @@ public:
 	virtual void onSettingCallBack() = 0;
 	virtual void onSelectThemeCallBack(int themen) = 0;
 	virtual void onSelectLevelCallBack(int theme, int level) = 0;
-	virtual void onSkipCallback() = 0;
+	virtual void onSkipCallBack() = 0;
+	virtual void onIntroCallBack() = 0;
 };
 
 #endif

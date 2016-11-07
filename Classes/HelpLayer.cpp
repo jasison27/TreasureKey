@@ -1,13 +1,21 @@
 #include "HelpLayer.h"
 
-HelpLayer * HelpLayer::createWithOption(bool hintf) {
+HelpLayer * HelpLayer::createWithOption(BasicScene* fa, bool hintf) {
 	HelpLayer* ret = HelpLayer::create();
-	ret->initWithOption(hintf);
-	return ret;
+	if (ret->initWithOption(fa, hintf)) return ret;
+	return nullptr;
 }
 
-bool HelpLayer::initWithOption(bool hintf) {
+bool HelpLayer::initWithOption(BasicScene* fa, bool hintf) {
+	container = fa;
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto cg = Sprite::create("Backgroundforscene3.png");
+	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
+	cg->setScale(sc);
+	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	this->addChild(cg);
 
 	auto theme = MenuItemImage::create("map.png", "mapHover.png", CC_CALLBACK_1(HelpLayer::menuThemeCallBack, this));
 	theme->setScale(798.0f / 2017.0f * visibleSize.width / theme->getContentSize().width);
@@ -24,13 +32,13 @@ bool HelpLayer::initWithOption(bool hintf) {
 	intro->setAnchorPoint(Vec2(0, 0));
 	intro->setPosition(76.0f / 2017.0f * visibleSize.width, 479.0f / 1135.0f * visibleSize.height);
 
-	auto hint = MenuItemImage::create("hint.png", "hingHover.png", CC_CALLBACK_1(HelpLayer::menuHintCallBack, this));
-	hint->setEnabled(hintf);
-	hint->setScale(257.0f / 2017.0f * visibleSize.width / hint->getContentSize().width);
-	hint->setAnchorPoint(Vec2(0, 0));
-	hint->setPosition(76.0f / 2017.0f * visibleSize.width, 273.0f / 1135.0f * visibleSize.height);
-
-	auto menu = Menu::create(theme, level, intro, hint, NULL);
+	//auto hint = MenuItemImage::create("hint.png", "hingHover.png", CC_CALLBACK_1(HelpLayer::menuHintCallBack, this));
+	//hint->setEnabled(hintf);
+	//hint->setScale(257.0f / 2017.0f * visibleSize.width / hint->getContentSize().width);
+	//hint->setAnchorPoint(Vec2(0, 0));
+	//hint->setPosition(76.0f / 2017.0f * visibleSize.width, 273.0f / 1135.0f * visibleSize.height);
+	//auto menu = Menu::create(theme, level, intro, hint, NULL);
+	auto menu = Menu::create(theme, level, intro, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
@@ -68,12 +76,18 @@ bool HelpLayer::initWithOption(bool hintf) {
 }
 
 void HelpLayer::menuThemeCallBack(Ref * pSender) {
+	container->onRemoveIntroLayerCallBack();
+	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuLevelCallBack(Ref * pSender) {
+	container->onSelectThemeCallBack(0); // last theme
+	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuIntroCallBack(Ref * pSender) {
+	container->onIntroCallBack();
+	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuHintCallBack(Ref * pSender) {

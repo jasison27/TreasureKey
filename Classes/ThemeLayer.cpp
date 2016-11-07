@@ -26,12 +26,18 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 
 	auto menu = CCMenu::create();
 
-	auto poly = MenuItemImage::create("theme1.png", "theme1.png", CC_CALLBACK_1(ThemeLayer::menuSelectCallBack, this));
+	auto poly = MenuItemImage::create("theme1.png", "theme1.png", CC_CALLBACK_1(ThemeLayer::onSelectThemeCallBack, this));
 	poly->setTag(1);
 	poly->setScale(251.0f / 2017.0f * visibleSize.width / poly->getContentSize().width);
 	poly->setAnchorPoint(Vec2(0, 0));
 	poly->setPosition(629.0f / 2017.0f * visibleSize.width, 929.0f / 1135.0f * visibleSize.height);
 	menu->addChild(poly);
+
+	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(ThemeLayer::onSettingCallBack, this));
+	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	settingItem->setAnchorPoint(Vec2(0, 0));
+	settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+	menu->addChild(settingItem);
 
 	menu->setPosition(0, 0);
 	this->addChild(menu);
@@ -39,7 +45,12 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 	return true;
 }
 
-void ThemeLayer::menuSelectCallBack(Ref * pSender) {
+void ThemeLayer::onSettingCallBack(Ref * pSender) {
+	container->onSettingCallBack();
+	this->removeFromParentAndCleanup(true);
+}
+
+void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
 	auto item = (MenuItemImage*)pSender;
 	int tag = item->getTag();
 

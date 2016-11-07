@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 #include "BasicScene.h"
+#include "ExampleLayer.h"
+#include "TouchDrawLayer.h"
 USING_NS_CC;
 
 class StartScene : public BasicScene
@@ -17,10 +19,15 @@ public:
 	virtual void onSettingCallBack();
 	virtual void onSelectThemeCallBack(int themen);
 	virtual void onSelectLevelCallBack(int theme, int level);
-	virtual void onSkipCallback();
+	virtual void onSkipCallBack();
+	virtual void onIntroCallBack();
 private:
 	int current_theme;
 	int current_level;
+	int max_theme;
+	int max_level;
+	ExampleLayer* example;
+	TouchDrawLayer* touchDraw;
 };
 
 #endif

@@ -12,11 +12,11 @@ public:
 	static TouchDrawLayer* createWithNothing(BasicScene* fa);
 	bool initWithNothing(BasicScene* fa);
 	std::vector <Vec2> getPoints();
-	void menuExitCallback(Ref* pSender);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch *touch, Event *event);
 	void onTouchEnded(Touch *touch, Event *event);
-	void menuFinishCallback(Ref *sender);
+	void onExitCallback(Ref* pSender);
+	void onDoneCallback(Ref *sender);
 private:
 	BasicScene* container;
 	Sprite* cursor;

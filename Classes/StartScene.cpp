@@ -22,6 +22,15 @@ bool StartScene::initScene() {
 	StartLayer* startLayer = StartLayer::createWithTime(this, 3.0f);
 	this->addChild(startLayer);
 
+	max_theme = UserDefault::getInstance()->getIntegerForKey("MaxTheme");
+	if (max_theme <= 0) {
+		max_theme = 1;
+	}
+	max_level = UserDefault::getInstance()->getIntegerForKey("MaxLevel");
+	if (max_level <= 0) {
+		max_level = 1;
+	}
+
 	return true;
 }
 
@@ -29,29 +38,32 @@ void StartScene::onHelpCloseCallBack() {
 }
 
 void StartScene::onRemoveStartLayerCallBack() {
+	UserDefault::getInstance()->setBoolForKey("Played", false);
 	if (!UserDefault::getInstance()->getBoolForKey("Played")) {
 		UserDefault::getInstance()->setBoolForKey("Played", true);
 		IntroLayer* intro = IntroLayer::createWithTime(this, 4.0f);
 		this->addChild(intro);
 	}
 	else {
-		ThemeLayer* theme = ThemeLayer::createWithTheme(this, 1);
+		ThemeLayer* theme = ThemeLayer::createWithTheme(this, max_theme);
 		this->addChild(theme);
 	}
 }
 
 void StartScene::onRemoveIntroLayerCallBack() {
-	ThemeLayer* theme = ThemeLayer::createWithTheme(this, 1);
+	ThemeLayer* theme = ThemeLayer::createWithTheme(this, max_theme);
 	this->addChild(theme);
 }
 
 void StartScene::onSettingCallBack() {
-	HelpLayer* help = HelpLayer::createWithOption(false);
+	HelpLayer* help = HelpLayer::createWithOption(this, false);
 	this->addChild(help);
 }
 
 void StartScene::onSelectThemeCallBack(int themen) {
-	this->current_theme = themen;
+	if (themen != 0) {
+		this->current_theme = themen;
+	}
 	LevelLayer* level = LevelLayer::createWithTheme(this, themen);
 	this->addChild(level);
 }
@@ -63,7 +75,13 @@ void StartScene::onSelectLevelCallBack(int theme, int level) {
 	this->addChild(example);
 }
 
-void StartScene::onSkipCallback() {
+void StartScene::onSkipCallBack() {
 	TouchDrawLayer* touchDraw = TouchDrawLayer::createWithNothing(this);
 	this->addChild(touchDraw);
 }
+
+void StartScene::onIntroCallBack() {
+	IntroLayer* intro = IntroLayer::createWithTime(this, 5.0f);
+	this->addChild(intro);
+}
+

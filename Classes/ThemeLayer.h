@@ -11,7 +11,8 @@ public:
 	CREATE_FUNC(ThemeLayer);
 	static ThemeLayer* createWithTheme(BasicScene* fa, int themen);
 	bool initWithTheme(BasicScene* fa, int themen);
-	void menuSelectCallBack(Ref *pSender);
+	void onSelectThemeCallBack(Ref *pSender);
+	void onSettingCallBack(Ref* pSender);
 private:
 	BasicScene* container;
 	int theme;

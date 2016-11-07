@@ -113,7 +113,7 @@ void ExampleLayer::update(float dt) {
 }
 
 void ExampleLayer::onSkipCallback(Ref* sender) {
-	container->onSkipCallback();
+	container->onSkipCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
