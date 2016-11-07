@@ -15,6 +15,7 @@ public:
 	virtual void onRemoveStartLayerCallBack();
 	virtual void onRemoveIntroLayerCallBack();
 	virtual void onSettingCallBack();
+	virtual void onSelectThemeCallBack(int themen);
 private:
 };
 

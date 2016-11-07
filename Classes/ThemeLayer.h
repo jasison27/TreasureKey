@@ -2,16 +2,19 @@
 #define THEME_LAYER_H__
 
 #include "cocos2d.h"
+#include "BasicScene.h"
 USING_NS_CC;
 
 class ThemeLayer : public Layer
 {
 public:
 	CREATE_FUNC(ThemeLayer);
-	static ThemeLayer* createWithTheme(int themen);
-	bool initWithTheme(int themen);
+	static ThemeLayer* createWithTheme(BasicScene* fa, int themen);
+	bool initWithTheme(BasicScene* fa, int themen);
 	void menuSelectCallBack(Ref *pSender);
 private:
+	BasicScene* container;
+	int theme;
 };
 
 #endif

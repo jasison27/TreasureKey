@@ -1,12 +1,15 @@
 #include "ThemeLayer.h"
 
-ThemeLayer * ThemeLayer::createWithTheme(int themen) {
+ThemeLayer * ThemeLayer::createWithTheme(BasicScene* fa, int themen) {
 	ThemeLayer * ret = ThemeLayer::create();
-	if (ret->initWithTheme(themen)) return ret;
+	if (ret->initWithTheme(fa, themen)) return ret;
 	return nullptr;
 }
 
-bool ThemeLayer::initWithTheme(int themen) {
+bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
+	theme = themen;
+	container = fa;
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto cg = Sprite::create("Backgroundforscene3.png");
@@ -21,14 +24,25 @@ bool ThemeLayer::initWithTheme(int themen) {
 	mandy->setPosition(50.0f / 2017.0f * visibleSize.width, 905.0f / 1135.0f * visibleSize.height);
 	this->addChild(mandy);
 
+	auto menu = CCMenu::create();
+
 	auto poly = MenuItemImage::create("theme1.png", "theme1.png", CC_CALLBACK_1(ThemeLayer::menuSelectCallBack, this));
+	poly->setTag(1);
 	poly->setScale(251.0f / 2017.0f * visibleSize.width / poly->getContentSize().width);
 	poly->setAnchorPoint(Vec2(0, 0));
 	poly->setPosition(629.0f / 2017.0f * visibleSize.width, 929.0f / 1135.0f * visibleSize.height);
-	this->addChild(poly);
+	menu->addChild(poly);
+
+	menu->setPosition(0, 0);
+	this->addChild(menu);
 
 	return true;
 }
 
 void ThemeLayer::menuSelectCallBack(Ref * pSender) {
+	auto item = (MenuItemImage*)pSender;
+	int tag = item->getTag();
+
+	container->onSelectThemeCallBack(tag);
+	this->removeFromParentAndCleanup(true);
 }

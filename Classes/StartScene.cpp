@@ -33,17 +33,20 @@ void StartScene::onRemoveStartLayerCallBack() {
 		this->addChild(intro);
 	}
 	else {
-		ThemeLayer* theme = ThemeLayer::createWithTheme(1);
+		ThemeLayer* theme = ThemeLayer::createWithTheme(this, 1);
 		this->addChild(theme);
 	}
 }
 
 void StartScene::onRemoveIntroLayerCallBack() {
-	ThemeLayer* theme = ThemeLayer::createWithTheme(1);
+	ThemeLayer* theme = ThemeLayer::createWithTheme(this, 1);
 	this->addChild(theme);
 }
 
 void StartScene::onSettingCallBack() {
 	HelpLayer* help = HelpLayer::createWithOption(false);
 	this->addChild(help);
+}
+
+void StartScene::onSelectThemeCallBack(int themen) {
 }

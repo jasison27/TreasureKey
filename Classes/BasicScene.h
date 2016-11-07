@@ -11,6 +11,7 @@ public:
 	virtual void onRemoveStartLayerCallBack() = 0;
 	virtual void onHelpCloseCallBack() = 0;
 	virtual void onSettingCallBack() = 0;
+	virtual void onSelectThemeCallBack(int themen) = 0;
 };
 
 #endif
