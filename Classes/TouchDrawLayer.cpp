@@ -1,9 +1,14 @@
 #include "TouchDrawLayer.h"
 #include "Util.h"
-#include "GameScene.h"
 
-bool TouchDraw::initWithScene(Game *gS) {
-	gameScene = gS;
+TouchDrawLayer * TouchDrawLayer::createWithNothing(BasicScene* fa) {
+	auto layer = TouchDrawLayer::create();
+	if (layer->initWithNothing(fa)) return layer;
+	return nullptr;
+}
+
+bool TouchDrawLayer::initWithNothing(BasicScene* fa) {
+	container = fa;
 	points.clear();
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -14,14 +19,13 @@ bool TouchDraw::initWithScene(Game *gS) {
 	cursor->setScale(180.0 / 1944 * visibleSize.width / cursor->getContentSize().width);
 	this->addChild(cursor, 3);
 
-	CCLOG("TouchDraw init");
 	pointsTmp.clear();
 	pointsVec.clear();
 	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 	auto oneTouch = EventListenerTouchOneByOne::create();
-	oneTouch->onTouchBegan = CC_CALLBACK_2(TouchDraw::onTouchBegan, this);
-	oneTouch->onTouchMoved = CC_CALLBACK_2(TouchDraw::onTouchMoved, this);
-	oneTouch->onTouchEnded = CC_CALLBACK_2(TouchDraw::onTouchEnded, this);
+	oneTouch->onTouchBegan = CC_CALLBACK_2(TouchDrawLayer::onTouchBegan, this);
+	oneTouch->onTouchMoved = CC_CALLBACK_2(TouchDrawLayer::onTouchMoved, this);
+	oneTouch->onTouchEnded = CC_CALLBACK_2(TouchDrawLayer::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
 	auto cg = Sprite::create("BackgroundLevel1.png");
@@ -51,13 +55,13 @@ bool TouchDraw::initWithScene(Game *gS) {
 	box->setPosition(30.0 / 1944 * visibleSize.width, 30.0 / 1330 * visibleSize.height);
 	this->addChild(box, 1);
 
-	finishItem = MenuItemImage::create("Finish.png", "FinishHover.png", CC_CALLBACK_1(TouchDraw::menuFinishCallback, this));
+	finishItem = MenuItemImage::create("Finish.png", "FinishHover.png", CC_CALLBACK_1(TouchDrawLayer::menuFinishCallback, this));
 	float finishItemSC = 337.0 / 1944 * visibleSize.width / finishItem->getContentSize().width;
 	finishItem->setScale(finishItemSC);
 	finishItem->setAnchorPoint(Vec2(1, 0));
 	finishItem->setPosition((1 - 40.0 / 1944)*visibleSize.width, 30.0 / 1330 * visibleSize.height);
 
-	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDraw::menuExitCallback, this));
+	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::menuExitCallback, this));
 	float closeItemSC = 122.0 / 1944 * visibleSize.width / closeItem->getContentSize().width;
 	closeItem->setScale(closeItemSC);
 	closeItem->setAnchorPoint(Vec2(1, 1));
@@ -70,7 +74,7 @@ bool TouchDraw::initWithScene(Game *gS) {
 	return true;
 }
 
-std::vector<Vec2> TouchDraw::getPoints() {
+std::vector<Vec2> TouchDrawLayer::getPoints() {
 	for (int i = 0; i < pointsVec.size(); ++i) {
 		int sz = pointsVec[i].size();
 		for (int j = 0; j < sz; ++j) {
@@ -80,24 +84,18 @@ std::vector<Vec2> TouchDraw::getPoints() {
 	return points;
 }
 
-void TouchDraw::menuExitCallback(Ref* pSender) {
+void TouchDrawLayer::menuExitCallback(Ref* pSender) {
 	Director::getInstance()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
 }
 
-void TouchDraw::menuFinishCallback(Ref * sender) {
-	gameScene->menuFinishCallback();
+void TouchDrawLayer::menuFinishCallback(Ref * sender) {
+	//gameScene->menuFinishCallback();
 }
 
-TouchDraw * TouchDraw::createWithScene(Game * gS) {
-	auto layer = TouchDraw::create();
-	layer->initWithScene(gS);
-	return layer;
-}
-
-bool TouchDraw::onTouchBegan(Touch * touch, Event * event) {
+bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	pointsTmp.clear();
 	tmpDrawNode->clear();
 	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
@@ -111,7 +109,7 @@ bool TouchDraw::onTouchBegan(Touch * touch, Event * event) {
 	return true;
 }
 
-void TouchDraw::onTouchMoved(Touch * touch, Event * event) {
+void TouchDrawLayer::onTouchMoved(Touch * touch, Event * event) {
 	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
 	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || finishItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || box->getBoundingBox().containsPoint(pos)) {
 		return;
@@ -121,7 +119,7 @@ void TouchDraw::onTouchMoved(Touch * touch, Event * event) {
 	pointsTmp.push_back(pos);
 }
 
-void TouchDraw::onTouchEnded(Touch * touch, Event * event) {
+void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
 	pointsVec.push_back(Util::getInstance()->smoothify(pointsTmp));
 	pointsTmp.clear();
 	tmpDrawNode->clear();

@@ -17,7 +17,10 @@ public:
 	virtual void onSettingCallBack();
 	virtual void onSelectThemeCallBack(int themen);
 	virtual void onSelectLevelCallBack(int theme, int level);
+	virtual void onSkipCallback();
 private:
+	int current_theme;
+	int current_level;
 };
 
 #endif

@@ -15,6 +15,12 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
+	auto cg = Sprite::create("Backgroundforscene4_5_6.png");
+	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
+	cg->setScale(sc);
+	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	this->addChild(cg);
+
 	auto robert = Sprite::create("key.png");
 	robert->setScale(visibleSize.width / robert->getContentSize().width);
 	robert->setAnchorPoint(Vec2(0, 0));

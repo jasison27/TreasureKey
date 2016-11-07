@@ -5,8 +5,6 @@
 #include "ExampleLayer.h"
 #include "TouchDrawLayer.h"
 
-class TouchDraw;
-
 class Game : public cocos2d::Scene
 {
 public:
@@ -22,7 +20,7 @@ private:
 	int level;
 	void beginDraw(float dt);
 	ExampleLayer *exampleLayer;
-	TouchDraw *touchDrawLayer;
+	TouchDrawLayer *touchDrawLayer;
 	cocos2d::Layer *finishLayer;
 };
 

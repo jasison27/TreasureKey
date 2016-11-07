@@ -104,6 +104,7 @@ void ExampleLayer::update(float dt) {
 	if (remainingT < 0) {
 		tme->setString("00:00");
 		remainingT = 0;
+		this->onSkipCallback(this);
 		return;
 	}
 	char todisplay[] = "xx:yy";
@@ -112,9 +113,12 @@ void ExampleLayer::update(float dt) {
 }
 
 void ExampleLayer::onSkipCallback(Ref* sender) {
+	container->onSkipCallback();
+	this->removeFromParentAndCleanup(true);
 }
 
 void ExampleLayer::onSettingCallBack(Ref * sender) {
+	container->onSettingCallBack();
 }
 
 std::vector<Vec2> ExampleLayer::getPoints() {

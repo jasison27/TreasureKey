@@ -5,6 +5,7 @@
 #include "HelpLayer.h"
 #include "LevelLayer.h"
 #include "ExampleLayer.h"
+#include "TouchDrawLayer.h"
 
 const int numFig = 5;
 const double levelPosX[] = { 100, 190, 340, 550, 770 };
@@ -17,7 +18,6 @@ StartScene* StartScene::createScene() {
 }
 
 bool StartScene::initScene() {
-	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	StartLayer* startLayer = StartLayer::createWithTime(this, 3.0f);
 	this->addChild(startLayer);
@@ -51,11 +51,19 @@ void StartScene::onSettingCallBack() {
 }
 
 void StartScene::onSelectThemeCallBack(int themen) {
+	this->current_theme = themen;
 	LevelLayer* level = LevelLayer::createWithTheme(this, themen);
 	this->addChild(level);
 }
 
 void StartScene::onSelectLevelCallBack(int theme, int level) {
+	this->current_theme = theme;
+	this->current_level = level;
 	ExampleLayer* example = ExampleLayer::createWithThemeLevel(this, theme, level);
 	this->addChild(example);
+}
+
+void StartScene::onSkipCallback() {
+	TouchDrawLayer* touchDraw = TouchDrawLayer::createWithNothing(this);
+	this->addChild(touchDraw);
 }

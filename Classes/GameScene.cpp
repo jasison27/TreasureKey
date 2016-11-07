@@ -37,13 +37,13 @@ void Game::beginDraw(float dt) {
 	example.clear();
 	example = exampleLayer->getPoints();
 	exampleLayer->removeFromParentAndCleanup(true);
-	touchDrawLayer = TouchDraw::createWithScene(this);
-	this->addChild(touchDrawLayer);
+	//touchDrawLayer = TouchDraw::createWithScene(this);
+	//this->addChild(touchDrawLayer);
 }
 
 void Game::menuFinishCallback() {
 	drawn = touchDrawLayer->getPoints();
-	touchDrawLayer->removeFromParentAndCleanup(true);
+	//touchDrawLayer->removeFromParentAndCleanup(true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	double similarity = 0;
 	if (drawn.size() > 5) {
