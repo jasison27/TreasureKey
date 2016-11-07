@@ -1,6 +1,6 @@
 #include "StartScene.h"
 #include "GameScene.h"
-#include "IntroLayer.h"
+#include "HelpLayer.h"
 USING_NS_CC;
 
 const int numFig = 5;
@@ -33,8 +33,8 @@ bool StartScene::init() {
 	menu->setPosition(Vec2::ZERO);
 	startLayer->addChild(menu, 1);
 
-	IntroLayer* intro = IntroLayer::createWithTime(5);
-	this->addChild(intro, 5);
+	HelpLayer* help = HelpLayer::createWithOption(false);
+	this->addChild(help, 5);
 
 	return true;
 }
