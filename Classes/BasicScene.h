@@ -10,6 +10,7 @@ public:
 	virtual void onRemoveIntroLayerCallBack() = 0;
 	virtual void onRemoveStartLayerCallBack() = 0;
 	virtual void onHelpCloseCallBack() = 0;
+	virtual void onSettingCallBack() = 0;
 };
 
 #endif

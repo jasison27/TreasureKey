@@ -14,6 +14,7 @@ public:
 	virtual void onHelpCloseCallBack();
 	virtual void onRemoveStartLayerCallBack();
 	virtual void onRemoveIntroLayerCallBack();
+	virtual void onSettingCallBack();
 private:
 };
 

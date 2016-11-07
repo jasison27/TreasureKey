@@ -2,6 +2,7 @@
 #include "StartLayer.h"
 #include "IntroLayer.h"
 #include "ThemeLayer.h"
+#include "HelpLayer.h"
 
 const int numFig = 5;
 const double levelPosX[] = { 100, 190, 340, 550, 770 };
@@ -40,4 +41,9 @@ void StartScene::onRemoveStartLayerCallBack() {
 void StartScene::onRemoveIntroLayerCallBack() {
 	ThemeLayer* theme = ThemeLayer::createWithTheme(1);
 	this->addChild(theme);
+}
+
+void StartScene::onSettingCallBack() {
+	HelpLayer* help = HelpLayer::createWithOption(false);
+	this->addChild(help);
 }

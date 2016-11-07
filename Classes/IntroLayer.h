@@ -10,6 +10,7 @@ class IntroLayer : public Layer
 public:
 	CREATE_FUNC(IntroLayer);
 	static IntroLayer* createWithTime(BasicScene* fa, float dt);
+	void onSettingCallBack(Ref* ref);
 	bool initWithTime(BasicScene* fa, float dt);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onTouchMoved(Touch *touch, Event *event);
