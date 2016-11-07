@@ -21,7 +21,7 @@ private:
 	std::vector <Vec2> drawn;
 	int level;
 	void beginDraw(float dt);
-	Example *exampleLayer;
+	ExampleLayer *exampleLayer;
 	TouchDraw *touchDrawLayer;
 	cocos2d::Layer *finishLayer;
 };

@@ -4,6 +4,7 @@
 #include "ThemeLayer.h"
 #include "HelpLayer.h"
 #include "LevelLayer.h"
+#include "ExampleLayer.h"
 
 const int numFig = 5;
 const double levelPosX[] = { 100, 190, 340, 550, 770 };
@@ -55,4 +56,6 @@ void StartScene::onSelectThemeCallBack(int themen) {
 }
 
 void StartScene::onSelectLevelCallBack(int theme, int level) {
+	ExampleLayer* example = ExampleLayer::createWithThemeLevel(this, theme, level);
+	this->addChild(example);
 }

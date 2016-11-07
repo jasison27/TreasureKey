@@ -24,7 +24,7 @@ bool Game::initWithLevel(int lev) {
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	exampleLayer = Example::createWithShape(level);
+	//exampleLayer = ExampleLayer::createWithShape(level);
 	this->addChild(exampleLayer, 1);
 	
 	this->scheduleOnce(schedule_selector(Game::beginDraw), 5.0f);
