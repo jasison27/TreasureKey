@@ -1,5 +1,6 @@
 #include "StartScene.h"
 #include "GameScene.h"
+#include "IntroLayer.h"
 USING_NS_CC;
 
 const int numFig = 5;
@@ -31,6 +32,9 @@ bool StartScene::init() {
 	auto menu = Menu::create(startItem, NULL);
 	menu->setPosition(Vec2::ZERO);
 	startLayer->addChild(menu, 1);
+
+	IntroLayer* intro = IntroLayer::createWithTime(5);
+	this->addChild(intro, 5);
 
 	return true;
 }
