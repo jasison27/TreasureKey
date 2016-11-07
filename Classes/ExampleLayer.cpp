@@ -124,7 +124,7 @@ void Example::removeFigure() {
 
 void Example::menuGoBackCallback(Ref* sender) {
 	auto gameScene = StartScene::create();
-	gameScene->menuStartCallback(gameScene);
+	//gameScene->menuStartCallback(gameScene);
 	Director::getInstance()->replaceScene(TransitionFade::create(0.5, gameScene, Color3B::WHITE));
 }
 

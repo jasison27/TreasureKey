@@ -9,11 +9,11 @@ ThemeLayer * ThemeLayer::createWithTheme(int themen) {
 bool ThemeLayer::initWithTheme(int themen) {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto bg = Sprite::create("Backgroundforscene3.png");
-	bg->setScale(visibleSize.width / bg->getContentSize().width, visibleSize.height / bg->getContentSize().height);
-	bg->setAnchorPoint(Vec2(0, 0));
-	bg->setPosition(0, 0);
-	this->addChild(bg);
+	auto cg = Sprite::create("Backgroundforscene3.png");
+	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
+	cg->setScale(sc);
+	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	this->addChild(cg);
 
 	auto mandy = Sprite::create("mandy.png");
 	mandy->setScale(196.0f / 2017.0f * visibleSize.width / mandy->getContentSize().width);

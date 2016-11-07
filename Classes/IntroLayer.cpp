@@ -9,14 +9,20 @@ const char intro[][100] = {
 	"THANKS FOR YOUR HELP."
 };
 
-IntroLayer * IntroLayer::createWithTime(float dt) {
+IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
 	auto ret = IntroLayer::create();
-	ret->initWithTime(dt);
+	ret->initWithTime(fa, dt);
 	return ret;
 }
 
-bool IntroLayer::initWithTime(float dt) {
+bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto cg = Sprite::create("Backgroundforscene1_2.png");
+	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
+	cg->setScale(sc);
+	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	this->addChild(cg);
 
 	auto mandy = Sprite::create("mandyintro.png");
 	mandy->setAnchorPoint(Vec2(0, 0));
@@ -49,6 +55,7 @@ bool IntroLayer::initWithTime(float dt) {
 
 	this->scheduleUpdate();
 
+	container = fa;
 	return true;
 }
 
@@ -65,6 +72,7 @@ void IntroLayer::onTouchEnded(Touch * touch, Event * event) {
 		this->finish();
 	}
 	else {
+		remainingT = duration;
 		text->setString(intro[textn]);
 	}
 }
@@ -84,5 +92,6 @@ void IntroLayer::update(float dt) {
 }
 
 void IntroLayer::finish() {
+	container->onRemoveIntroLayerCallBack();
 	this->removeFromParentAndCleanup(true);
 }

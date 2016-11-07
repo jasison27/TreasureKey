@@ -8,16 +8,13 @@ USING_NS_CC;
 class StartScene : public BasicScene
 {
 public:
-	static Scene* createScene();
-	virtual bool init();
-	void menuStartCallback(Ref *pSender);
-	void menuSelectCallback(Ref* pSender);
-	void menuCloseCallback(Ref* pSender);
-	virtual void onHelpCloseCallBack();
 	CREATE_FUNC(StartScene);
+	static StartScene* createScene();
+	bool initScene();
+	virtual void onHelpCloseCallBack();
+	virtual void onRemoveStartLayerCallBack();
+	virtual void onRemoveIntroLayerCallBack();
 private:
-	Layer *startLayer;
-	LayerColor *selectLayer;
 };
 
 #endif

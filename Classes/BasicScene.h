@@ -7,6 +7,8 @@ USING_NS_CC;
 class BasicScene : public Scene
 {
 public:
+	virtual void onRemoveIntroLayerCallBack() = 0;
+	virtual void onRemoveStartLayerCallBack() = 0;
 	virtual void onHelpCloseCallBack() = 0;
 };
 
