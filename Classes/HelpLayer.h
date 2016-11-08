@@ -9,14 +9,16 @@ class HelpLayer : public Layer
 {
 public:
 	CREATE_FUNC(HelpLayer);
-	static HelpLayer* createWithOption(BasicScene* fa, bool hintf);
-	bool initWithOption(BasicScene* fa, bool hintf);
+	static HelpLayer* createWithOption(BasicScene* fa, LayerEnum lenum);
+	bool initWithOption(BasicScene* fa, LayerEnum lenum);
 	void menuThemeCallBack(Ref *pSender);
 	void menuLevelCallBack(Ref *pSender);
 	void menuIntroCallBack(Ref *pSender);
-	void menuHintCallBack(Ref *pSender);
+	void menuCloseCallBack(Ref *pSender);
+	bool onTouchBegan(Touch *touch, Event *event);
 private:
 	BasicScene* container;
+	LayerEnum mylenum;
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "IntroLayer.h"
+#include "Util.h"
 
 const char intro[][100] = {
 	"WELCOME TO\nTREASURE KEY.\nLET ME EXPLAIN\nHOW TO PLAY!",
@@ -16,7 +17,7 @@ IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
 }
 
 void IntroLayer::onSettingCallBack(Ref * ref) {
-	container->onSettingCallBack();
+	container->onSettingCallBack(INTRO_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 
@@ -51,7 +52,7 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 
 	duration = dt;
 
-	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+	//this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 	auto oneTouch = EventListenerTouchOneByOne::create();
 	oneTouch->onTouchBegan = CC_CALLBACK_2(IntroLayer::onTouchBegan, this);
 	oneTouch->onTouchMoved = CC_CALLBACK_2(IntroLayer::onTouchMoved, this);
@@ -75,9 +76,6 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 
 bool IntroLayer::onTouchBegan(Touch * touch, Event * event) {
 	return true;
-}
-
-void IntroLayer::onTouchMoved(Touch * touch, Event * event) {
 }
 
 void IntroLayer::onTouchEnded(Touch * touch, Event * event) {

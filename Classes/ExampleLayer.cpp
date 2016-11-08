@@ -118,7 +118,8 @@ void ExampleLayer::onSkipCallback(Ref* sender) {
 }
 
 void ExampleLayer::onSettingCallBack(Ref * sender) {
-	container->onSettingCallBack();
+	this->unscheduleUpdate();
+	container->onSettingCallBack(EXAMPLE_LAYER);
 }
 
 std::vector<Vec2> ExampleLayer::getPoints() {

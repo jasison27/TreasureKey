@@ -42,7 +42,7 @@ void Game::beginDraw(float dt) {
 }
 
 void Game::menuFinishCallback() {
-	drawn = touchDrawLayer->getPoints();
+	//drawn = touchDrawLayer->getPoints();
 	//touchDrawLayer->removeFromParentAndCleanup(true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	double similarity = 0;

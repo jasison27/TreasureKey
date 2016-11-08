@@ -5,6 +5,17 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+enum LayerEnum {
+	START_LAYER,
+	INTRO_LAYER,
+	THEME_LAYER,
+	HELP_LAYER,
+	LEVEL_LAYER,
+	EXAMPLE_LAYER,
+	TOUCHDRAW_LAYER,
+	FINISH_LAYER
+};
+
 class Util {
 public:
 	static Util* getInstance();

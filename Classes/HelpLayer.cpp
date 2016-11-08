@@ -1,13 +1,14 @@
 #include "HelpLayer.h"
 
-HelpLayer * HelpLayer::createWithOption(BasicScene* fa, bool hintf) {
+HelpLayer * HelpLayer::createWithOption(BasicScene* fa, LayerEnum lenum) {
 	HelpLayer* ret = HelpLayer::create();
-	if (ret->initWithOption(fa, hintf)) return ret;
+	if (ret->initWithOption(fa, lenum)) return ret;
 	return nullptr;
 }
 
-bool HelpLayer::initWithOption(BasicScene* fa, bool hintf) {
+bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 	container = fa;
+	mylenum = lenum;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -17,28 +18,32 @@ bool HelpLayer::initWithOption(BasicScene* fa, bool hintf) {
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg);
 
+	auto menu = Menu::create();
+
 	auto theme = MenuItemImage::create("map.png", "mapHover.png", CC_CALLBACK_1(HelpLayer::menuThemeCallBack, this));
 	theme->setScale(798.0f / 2017.0f * visibleSize.width / theme->getContentSize().width);
 	theme->setAnchorPoint(Vec2(0, 0));
 	theme->setPosition(76.0f / 2017.0f * visibleSize.width, 893.0f / 1135.0f * visibleSize.height);
+	menu->addChild(theme);
 
 	auto level = MenuItemImage::create("levels.png", "levelsHover.png", CC_CALLBACK_1(HelpLayer::menuLevelCallBack, this));
 	level->setScale(687.0f / 2017.0f * visibleSize.width / level->getContentSize().width);
 	level->setAnchorPoint(Vec2(0, 0));
 	level->setPosition(76.0f / 2017.0f * visibleSize.width, 685.0f / 1135.0f * visibleSize.height);
+	menu->addChild(level);
 
 	auto intro = MenuItemImage::create("video.png", "videoHover.png", CC_CALLBACK_1(HelpLayer::menuIntroCallBack, this));
 	intro->setScale(498.0f / 2017.0f * visibleSize.width / intro->getContentSize().width);
 	intro->setAnchorPoint(Vec2(0, 0));
 	intro->setPosition(76.0f / 2017.0f * visibleSize.width, 479.0f / 1135.0f * visibleSize.height);
+	menu->addChild(intro);
 
-	//auto hint = MenuItemImage::create("hint.png", "hingHover.png", CC_CALLBACK_1(HelpLayer::menuHintCallBack, this));
-	//hint->setEnabled(hintf);
-	//hint->setScale(257.0f / 2017.0f * visibleSize.width / hint->getContentSize().width);
-	//hint->setAnchorPoint(Vec2(0, 0));
-	//hint->setPosition(76.0f / 2017.0f * visibleSize.width, 273.0f / 1135.0f * visibleSize.height);
-	//auto menu = Menu::create(theme, level, intro, hint, NULL);
-	auto menu = Menu::create(theme, level, intro, NULL);
+	auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(HelpLayer::menuCloseCallBack, this));
+	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setAnchorPoint(Vec2(0, 0));
+	closeItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
+	menu->addChild(closeItem);
+
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
@@ -72,6 +77,13 @@ bool HelpLayer::initWithOption(BasicScene* fa, bool hintf) {
 	gmail->setPosition(673.0f / 2017.0f * visibleSize.width, 26.f / 1135.0f * visibleSize.height);
 	this->addChild(gmail);
 
+	auto oneTouch = EventListenerTouchOneByOne::create();
+	oneTouch->onTouchBegan = CC_CALLBACK_2(HelpLayer::onTouchBegan, this);
+	oneTouch->onTouchMoved = CC_CALLBACK_2(HelpLayer::onTouchMoved, this);
+	oneTouch->onTouchEnded = CC_CALLBACK_2(HelpLayer::onTouchEnded, this);
+	oneTouch->setSwallowTouches(true);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
+
 	return true;
 }
 
@@ -90,5 +102,11 @@ void HelpLayer::menuIntroCallBack(Ref * pSender) {
 	this->removeFromParentAndCleanup(true);
 }
 
-void HelpLayer::menuHintCallBack(Ref * pSender) {
+void HelpLayer::menuCloseCallBack(Ref * pSender) {
+	container->onHelpCloseCallBack(mylenum);
+	this->removeFromParentAndCleanup(true);
+}
+
+bool HelpLayer::onTouchBegan(Touch * touch, Event * event) {
+	return true;
 }

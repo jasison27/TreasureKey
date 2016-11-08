@@ -46,7 +46,7 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 }
 
 void ThemeLayer::onSettingCallBack(Ref * pSender) {
-	container->onSettingCallBack();
+	container->onSettingCallBack(THEME_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 

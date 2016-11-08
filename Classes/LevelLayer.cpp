@@ -1,4 +1,5 @@
 #include "LevelLayer.h"
+#include "Util.h"
 
 const float px[] = { 3.0f, 101.0f, 198.0f, 294.0f, 391.0f };
 const float py[] = { 123.0f, 174.0f, 227.0f, 267.0f, 306.0f };
@@ -12,6 +13,10 @@ LevelLayer * LevelLayer::createWithTheme(BasicScene * fa, int themen) {
 bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 	container = fa;
 	theme = themen;
+	int max_theme = UserDefault::getInstance()->getIntegerForKey("MaxTheme");
+	int max_level = UserDefault::getInstance()->getIntegerForKey("MaxLevel");
+	if (max_theme <= 0) max_theme = 1;
+	if (max_level <= 0) max_level = 1;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -29,7 +34,7 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 
 	auto menu = Menu::create();
 	char itemname[] = "shape0.png";
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < max_level; ++i) {
 		itemname[5] = i + '1';
 		auto item = MenuItemImage::create(itemname, itemname, CC_CALLBACK_1(LevelLayer::onSelectLevelCallBack, this));
 		item->setTag(i+1);
@@ -37,6 +42,13 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 		item->setAnchorPoint(Vec2(0, 0));
 		item->setPosition( px[i] / 968.3f * visibleSize.width, py[i] / 544.65f * visibleSize.height);
 		menu->addChild(item);
+	}
+	for (int i = max_level; i < 5; ++i) {
+		auto locked = Sprite::create("Locked.png");
+		locked->setScale(97.0f / 968.3f * visibleSize.width / locked->getContentSize().width);
+		locked->setAnchorPoint(Vec2(0, 0));
+		locked->setPosition(px[i] / 968.3f * visibleSize.width, py[i] / 544.65f * visibleSize.height);
+		this->addChild(locked);
 	}
 
 	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(LevelLayer::onSettingCallBack, this));
@@ -66,7 +78,7 @@ void LevelLayer::onSelectLevelCallBack(Ref * ref) {
 }
 
 void LevelLayer::onSettingCallBack(Ref * ref) {
-	container->onSettingCallBack();
+	container->onSettingCallBack(LEVEL_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 

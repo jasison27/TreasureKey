@@ -13,7 +13,6 @@ public:
 	void onSettingCallBack(Ref* ref);
 	bool initWithTime(BasicScene* fa, float dt);
 	bool onTouchBegan(Touch *touch, Event *event);
-	void onTouchMoved(Touch *touch, Event *event);
 	void onTouchEnded(Touch *touch, Event *event);
 	void update(float dt) override;
 	void finish();

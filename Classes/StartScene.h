@@ -6,6 +6,7 @@
 #include "ExampleLayer.h"
 #include "TouchDrawLayer.h"
 USING_NS_CC;
+#include "Util.h"
 
 class StartScene : public BasicScene
 {
@@ -13,14 +14,15 @@ public:
 	CREATE_FUNC(StartScene);
 	static StartScene* createScene();
 	bool initScene();
-	virtual void onHelpCloseCallBack();
+	virtual void onHelpCloseCallBack(LayerEnum lenum);
 	virtual void onRemoveStartLayerCallBack();
 	virtual void onRemoveIntroLayerCallBack();
-	virtual void onSettingCallBack();
+	virtual void onSettingCallBack(LayerEnum lenum);
 	virtual void onSelectThemeCallBack(int themen);
 	virtual void onSelectLevelCallBack(int theme, int level);
 	virtual void onSkipCallBack();
 	virtual void onIntroCallBack();
+	virtual void onFinishDrawCallBack();
 private:
 	int current_theme;
 	int current_level;

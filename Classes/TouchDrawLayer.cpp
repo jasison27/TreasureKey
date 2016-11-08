@@ -1,14 +1,17 @@
 #include "TouchDrawLayer.h"
 #include "Util.h"
 
-TouchDrawLayer * TouchDrawLayer::createWithNothing(BasicScene* fa) {
+TouchDrawLayer * TouchDrawLayer::createWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	auto layer = TouchDrawLayer::create();
-	if (layer->initWithNothing(fa)) return layer;
+	if (layer->initWithNothing(fa, pts)) return layer;
 	return nullptr;
 }
 
-bool TouchDrawLayer::initWithNothing(BasicScene* fa) {
+bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	container = fa;
+	hint = false;
+	expoints = pts;
+
 	points.clear();
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -21,7 +24,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa) {
 
 	pointsTmp.clear();
 	pointsVec.clear();
-	this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+	//this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 	auto oneTouch = EventListenerTouchOneByOne::create();
 	oneTouch->onTouchBegan = CC_CALLBACK_2(TouchDrawLayer::onTouchBegan, this);
 	oneTouch->onTouchMoved = CC_CALLBACK_2(TouchDrawLayer::onTouchMoved, this);
@@ -35,71 +38,97 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa) {
 	this->addChild(cg, 0);
 
 	auto cgbg = LayerColor::create(Color4B::WHITE);
-	cgbg->setContentSize(Size(1724.0 / 1944 * visibleSize.width, 1110.0 / 1330 * visibleSize.height));
-	cgbg->setPosition((visibleSize - cgbg->getContentSize()) / 2);
+	cgbg->setContentSize(Size(900.0f / 969.0f * visibleSize.width, 490.0f / 554.0f * visibleSize.height));
+	//cgbg->setAnchorPoint(Vec2(0.5, 0.5));
+	cgbg->setPosition(34.5f / 969.0f * visibleSize.width, 32.0f / 554.0f * visibleSize.height);
+	//cgbg->setPosition((visibleSize - cgbg->getContentSize()) / 2);
 	this->addChild(cgbg, 0);
 
-	l = 110.0 / 1944 * visibleSize.width;
-	r = 1830.0 / 1944 * visibleSize.width;
-	d = 110.0 / 1330 * visibleSize.height;
-	u = 1220.0 / 1330 * visibleSize.height;
+	l = 34.5f / 969.0f * visibleSize.width;
+	r = 934.5f / 969.0f * visibleSize.width;
+	d = 32.0f / 554.0f * visibleSize.height;
+	u = 552.0f / 554.0f * visibleSize.height;
 
 	drawNode = DrawNode::create();
 	this->addChild(drawNode);
 	tmpDrawNode = DrawNode::create();
 	this->addChild(tmpDrawNode, 1);
+	exDrawNode = DrawNode::create();
+	Vec2 *expointer = &expoints[0];
+	exDrawNode->drawPoints(expointer, expoints.size(), 2, Color4F::GRAY);
+	this->addChild(exDrawNode, -1);
 
 	box = Sprite::create("ChestBoxBeforeFinish.png");
-	box->setScale(410.0 / 1944 * visibleSize.width / box->getContentSize().width);
+	box->setScale(197.0f / 968.3f * visibleSize.width / box->getContentSize().width);
 	box->setAnchorPoint(Vec2::ZERO);
-	box->setPosition(30.0 / 1944 * visibleSize.width, 30.0 / 1330 * visibleSize.height);
-	this->addChild(box, 1);
+	box->setPosition(0, 0);
+	this->addChild(box);
 
-	finishItem = MenuItemImage::create("Finish.png", "FinishHover.png", CC_CALLBACK_1(TouchDrawLayer::onDoneCallback, this));
-	float finishItemSC = 337.0 / 1944 * visibleSize.width / finishItem->getContentSize().width;
-	finishItem->setScale(finishItemSC);
-	finishItem->setAnchorPoint(Vec2(1, 0));
-	finishItem->setPosition((1 - 40.0 / 1944)*visibleSize.width, 30.0 / 1330 * visibleSize.height);
+	doneItem = MenuItemImage::create("Done.png", "DoneHover.png", CC_CALLBACK_1(TouchDrawLayer::onDoneCallback, this));
+	doneItem->setScale(129.0f / 949.0f * visibleSize.width / doneItem->getContentSize().width);
+	doneItem->setAnchorPoint(Vec2(0, 0));
+	doneItem->setPosition( 11.3f / 949.0f * visibleSize.width, 462.0f / 554.0f * visibleSize.height);
 
-	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onExitCallback, this));
-	float closeItemSC = 122.0 / 1944 * visibleSize.width / closeItem->getContentSize().width;
-	closeItem->setScale(closeItemSC);
-	closeItem->setAnchorPoint(Vec2(1, 1));
-	closeItem->setPosition((1 - 40.0 / 1944)*visibleSize.width, (1 - 40.0 / 1330)  * visibleSize.height);
+	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onCloseCallBack, this));
+	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setAnchorPoint(Vec2(0, 0));
+	closeItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
 
-	auto menu = Menu::create(finishItem, closeItem, NULL);
+	settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(TouchDrawLayer::onSettingCallBack, this));
+	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	settingItem->setAnchorPoint(Vec2(0, 0));
+	settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+
+	auto menu = Menu::create(doneItem, closeItem, settingItem, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
 	return true;
 }
 
-std::vector<Vec2> TouchDrawLayer::getPoints() {
+void TouchDrawLayer::calcPoints() {
+	points.clear();
 	for (int i = 0; i < pointsVec.size(); ++i) {
 		int sz = pointsVec[i].size();
 		for (int j = 0; j < sz; ++j) {
 			points.push_back(pointsVec[i][j]);
 		}
 	}
-	return points;
 }
 
-void TouchDrawLayer::onExitCallback(Ref* pSender) {
-	Director::getInstance()->end();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
+void TouchDrawLayer::onCloseCallBack(Ref* pSender) {
+	container->onSelectThemeCallBack(0);
+	this->removeFromParentAndCleanup(true);
 }
 
 void TouchDrawLayer::onDoneCallback(Ref * sender) {
-	//gameScene->menuFinishCallback();
+	container->onFinishDrawCallBack();
+	this->removeFromParentAndCleanup(true);
+}
+
+void TouchDrawLayer::onSettingCallBack(Ref * sender) {
+	container->onSettingCallBack(TOUCHDRAW_LAYER);
+}
+
+float TouchDrawLayer::calcSimilarity() {
+	calcPoints();
+	float similarity = 0;
+	if (points.size() > 5) {
+		similarity = Util::getInstance()->calcSimilarity(expoints, points, Director::getInstance()->getVisibleSize());
+	}
+	return similarity;
 }
 
 bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	pointsTmp.clear();
 	tmpDrawNode->clear();
 	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
-	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || finishItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || box->getBoundingBox().containsPoint(pos)) {
+	if (box->getBoundingBox().containsPoint(pos)) {
+		hint = true;
+		exDrawNode->setZOrder(4);
+		return true;
+	}
+	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || doneItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || settingItem->getBoundingBox().containsPoint(pos)) {
 		return false;
 	}
 	cursor->setPosition(pos);
@@ -110,8 +139,9 @@ bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 }
 
 void TouchDrawLayer::onTouchMoved(Touch * touch, Event * event) {
+	if (hint) return;
 	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
-	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || finishItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || box->getBoundingBox().containsPoint(pos)) {
+	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || doneItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || settingItem->getBoundingBox().containsPoint(pos)) {
 		return;
 	}
 	cursor->setPosition(pos);
@@ -120,6 +150,11 @@ void TouchDrawLayer::onTouchMoved(Touch * touch, Event * event) {
 }
 
 void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
+	if (hint) {
+		hint = false;
+		exDrawNode->setZOrder(-1);
+		return;
+	}
 	pointsVec.push_back(Util::getInstance()->smoothify(pointsTmp));
 	pointsTmp.clear();
 	tmpDrawNode->clear();
