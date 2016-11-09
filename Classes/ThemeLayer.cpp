@@ -18,11 +18,11 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg);
 
-	auto mandy = Sprite::create("mandy.png");
+	mandy = Sprite::create("mandy.png");
 	mandy->setScale(196.0f / 2017.0f * visibleSize.width / mandy->getContentSize().width);
 	mandy->setAnchorPoint(Vec2(0, 0));
 	mandy->setPosition(50.0f / 2017.0f * visibleSize.width, 905.0f / 1135.0f * visibleSize.height);
-	this->addChild(mandy);
+	this->addChild(mandy, 2);
 
 	auto menu = CCMenu::create();
 
@@ -50,10 +50,17 @@ void ThemeLayer::onSettingCallBack(Ref * pSender) {
 	this->removeFromParentAndCleanup(true);
 }
 
+void ThemeLayer::enterTheme(int tag) {
+	container->onSelectThemeCallBack(tag);
+	this->removeFromParentAndCleanup(true);
+}
+
 void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
 	auto item = (MenuItemImage*)pSender;
 	int tag = item->getTag();
 
-	container->onSelectThemeCallBack(tag);
-	this->removeFromParentAndCleanup(true);
+	auto moveTo = MoveTo::create(1, item->getPosition());
+	auto callBack = CallFunc::create(CC_CALLBACK_0(ThemeLayer::enterTheme, this, tag));
+
+	mandy->runAction(Sequence::create(moveTo, callBack, nullptr));
 }

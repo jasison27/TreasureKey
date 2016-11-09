@@ -14,8 +14,10 @@ public:
 	void onSelectThemeCallBack(Ref *pSender);
 	void onSettingCallBack(Ref* pSender);
 private:
+	Sprite* mandy;
 	BasicScene* container;
 	int theme;
+	void enterTheme(int tag);
 };
 
 #endif
