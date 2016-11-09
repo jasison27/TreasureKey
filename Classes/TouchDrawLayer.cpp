@@ -1,5 +1,7 @@
 #include "TouchDrawLayer.h"
 #include "Util.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 TouchDrawLayer * TouchDrawLayer::createWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	auto layer = TouchDrawLayer::create();
@@ -98,6 +100,13 @@ void TouchDrawLayer::calcPoints() {
 }
 
 void TouchDrawLayer::onCloseCallBack(Ref* pSender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onSelectThemeCallBack(0);
 	this->removeFromParentAndCleanup(true);
 }
@@ -105,18 +114,27 @@ void TouchDrawLayer::onCloseCallBack(Ref* pSender) {
 void TouchDrawLayer::onDoneCallback(Ref * sender) {
 	drawNode->clear();
 	calcPoints();
-	for (int i = 1; i < expoints.size(); ++i) {
+	for (size_t i = 1; i < expoints.size(); ++i) {
 		drawNode->drawLine(expoints[i - 1], expoints[i], Color4F(Color3B(0xf4, 0xb2, 0x1e)));
 	}
 	drawNode->drawLine(expoints.back(), expoints.front(), Color4F(Color3B(0xf4, 0xb2, 0x1e)));
-	for (int i = 1; i < points.size(); ++i) {
-		drawNode->drawLine(points[i - 1], points[i], Color4F(Color3B(0x4c, 0x42, 0x34)));
+	if (points.size() > 5) {
+		for (size_t i = 1; i < points.size(); ++i) {
+			drawNode->drawLine(points[i - 1], points[i], Color4F(Color3B(0x4c, 0x42, 0x34)));
+		}
+		drawNode->drawLine(points.back(), points.front(), Color4F(Color3B(0x4c, 0x42, 0x34)));
 	}
-	drawNode->drawLine(points.back(), points.front(), Color4F(Color3B(0x4c, 0x42, 0x34)));
 	container->onFinishDrawCallBack();
 }
 
 void TouchDrawLayer::onSettingCallBack(Ref * sender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onSettingCallBack(TOUCHDRAW_LAYER);
 }
 

@@ -12,8 +12,8 @@ bool StartLayer::initWithTime(BasicScene* fa, float dt) {
 	remainingT = dt;
 
 	auto cg = Sprite::create("StartingScreenLandscape.png");
-	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
-	cg->setScale(sc);
+	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
+	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg);
 	this->scheduleUpdate();

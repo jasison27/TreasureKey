@@ -52,12 +52,11 @@ void StartScene::onHelpCloseCallBack(LayerEnum lenum) {
 		this->addChild(layer);
 	}
 	else if (lenum == EXAMPLE_LAYER) {
-		example->scheduleUpdate();
+		example->resumeFromHelpLayer();
 	}
 }
 
 void StartScene::onRemoveStartLayerCallBack() {
-	UserDefault::getInstance()->setBoolForKey("Played", false);
 	if (!UserDefault::getInstance()->getBoolForKey("Played")) {
 		UserDefault::getInstance()->setBoolForKey("Played", true);
 		IntroLayer* intro = IntroLayer::createWithTime(this, 4.0f);

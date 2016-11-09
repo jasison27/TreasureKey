@@ -2,6 +2,8 @@
 #include "BasicScene.h"
 #include <algorithm>
 #include "Util.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 const double PI = acos(-1);
 int num_vertex[] = { 0,3,4,6,8 };
@@ -95,6 +97,13 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	this->addChild(menu);
 
 	this->scheduleUpdate();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.wav", true);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.ogg", true);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.caf", true);
+#endif
 
 	return true;
 }
@@ -104,7 +113,8 @@ void ExampleLayer::update(float dt) {
 	if (remainingT < 0) {
 		tme->setString("00:00");
 		remainingT = 0;
-		this->onSkipCallback(this);
+		container->onSkipCallBack();
+		this->removeFromParentAndCleanup(true);
 		return;
 	}
 	char todisplay[] = "xx:yy";
@@ -112,12 +122,33 @@ void ExampleLayer::update(float dt) {
 	tme->setString(todisplay);
 }
 
+void ExampleLayer::resumeFromHelpLayer() {
+	SimpleAudioEngine::getInstance()->resumeEffect(countEffect);
+	this->scheduleUpdate();
+}
+
 void ExampleLayer::onSkipCallback(Ref* sender) {
+	SimpleAudioEngine::getInstance()->stopEffect(countEffect);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onSkipCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void ExampleLayer::onSettingCallBack(Ref * sender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
+	SimpleAudioEngine::getInstance()->pauseEffect(countEffect);
 	this->unscheduleUpdate();
 	container->onSettingCallBack(EXAMPLE_LAYER);
 }

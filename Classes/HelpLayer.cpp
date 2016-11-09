@@ -1,4 +1,6 @@
 #include "HelpLayer.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 HelpLayer * HelpLayer::createWithOption(BasicScene* fa, LayerEnum lenum) {
 	HelpLayer* ret = HelpLayer::create();
@@ -86,21 +88,49 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 }
 
 void HelpLayer::menuThemeCallBack(Ref * pSender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onRemoveIntroLayerCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuLevelCallBack(Ref * pSender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onSelectThemeCallBack(0); // last theme
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuIntroCallBack(Ref * pSender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onIntroCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuCloseCallBack(Ref * pSender) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onHelpCloseCallBack(mylenum);
 	this->removeFromParentAndCleanup(true);
 }

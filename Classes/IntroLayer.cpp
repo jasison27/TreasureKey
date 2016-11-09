@@ -1,12 +1,14 @@
 #include "IntroLayer.h"
 #include "Util.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 const char intro[][100] = {
 	"WELCOME TO\nTREASURE KEY.\nLET ME EXPLAIN\nHOW TO PLAY!",
 	"I AM MANDY\nAND NEED HELP\nFROM YOU.",
 	"LONG TIME AGO,\nROBERTO, A PIRATE,\nHID HIS TREASUER\nIN DIFFERENT\nTHEME PARKS.",
-	"THERE ARE FIVE CHESTS IN EACH THEME PARK.",
-	"TO UNLOCK THE CHESTS, WE NEED TO UNLOCK THE SHAPE OF THE KEY BY DRAWING IT OUT.",
+	"THERE ARE FIVE CHESTS\nIN EACH THEME PARK.",
+	"TO UNLOCK THE CHESTS,\nWE NEED TO UNLOCK\nTHE SHAPE OF THE KEY\nBY DRAWING IT OUT.",
 	"THANKS FOR YOUR HELP."
 };
 
@@ -17,6 +19,13 @@ IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
 }
 
 void IntroLayer::onSettingCallBack(Ref * ref) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
 	container->onSettingCallBack(INTRO_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
@@ -42,9 +51,9 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	bubble->setPosition(715.5f / 2017.0f * visibleSize.width, 136.0f / 1135.0f * visibleSize.height);
 	this->addChild(bubble);
 
-	text = Label::createWithTTF(intro[0], "cartoonist_kooky.ttf", 36);
+	text = Label::createWithTTF(intro[0], "cartoonist_kooky.ttf", 48);
 	text->setAlignment(TextHAlignment::CENTER);
-	text->setPosition(1373.0f / 2017.0f * visibleSize.width, 600.f / 1135.0f * visibleSize.height);
+	text->setPosition(1373.0f / 2017.0f * visibleSize.width, 620.f / 1135.0f * visibleSize.height);
 	text->setColor(Color3B(0x4c, 0x42, 0x34));
 	this->addChild(text);
 	textn = 0;

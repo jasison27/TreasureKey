@@ -15,10 +15,12 @@ public:
 	void onSettingCallBack(Ref* sender);
 	std::vector <Vec2> getPoints();
 	void update(float) override;
+	void resumeFromHelpLayer();
 private:
 	int theme, level;
 	BasicScene * container;
 	Label *tme;
+	int countEffect;
 	float remainingT;
 	DrawNode *drawNode;
 	std::vector<Vec2> points;
