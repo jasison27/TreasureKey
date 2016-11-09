@@ -58,9 +58,9 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 	menu->addChild(settingItem);
 
 	auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(LevelLayer::onCloseCallBack, this));
-	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setScale(129.0f / 949.0f * visibleSize.width / closeItem->getContentSize().width);
 	closeItem->setAnchorPoint(Vec2(0, 0));
-	closeItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
+	closeItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
 	menu->addChild(closeItem);
 
 	menu->setPosition(0, 0);

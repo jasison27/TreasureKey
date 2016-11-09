@@ -16,6 +16,7 @@ public:
 	std::vector <Vec2> getPoints();
 	void update(float) override;
 	void resumeFromHelpLayer();
+	bool onTouchBegan(Touch *touch, Event *event);
 private:
 	int theme, level;
 	BasicScene * container;

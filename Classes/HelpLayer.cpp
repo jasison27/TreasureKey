@@ -13,7 +13,7 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto cg = Sprite::create("Backgroundforscene3.png");
+	auto cg = Sprite::create("greenbackground.png");
 	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
 	cg->setScale(sc);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
@@ -47,13 +47,13 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 	}
 	itemMusic->setScale(543.0f / 2017.0f * visibleSize.width / itemMusic->getContentSize().width);
 	itemMusic->setAnchorPoint(Vec2(0, 0));
-	itemMusic->setPosition(76.0f / 2017.0f * visibleSize.width, 104.0f / 1135.0f * visibleSize.height);
+	itemMusic->setPosition(76.0f / 2017.0f * visibleSize.width, 304.0f / 1135.0f * visibleSize.height);
 	menu->addChild(itemMusic);
 
 	auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(HelpLayer::menuCloseCallBack, this));
-	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setScale(129.0f / 949.0f * visibleSize.width / closeItem->getContentSize().width);
 	closeItem->setAnchorPoint(Vec2(0, 0));
-	closeItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
+	closeItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
 	menu->addChild(closeItem);
 
 	menu->setPosition(Vec2::ZERO);

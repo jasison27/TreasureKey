@@ -24,7 +24,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 	oneTouch->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
-	if (sc > 0.7) {
+	if (sc > 0.8) {
 		if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 			SimpleAudioEngine::getInstance()->playEffect("pass.wav");
@@ -43,31 +43,31 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		auto nextItem = MenuItemImage::create("NextLevel.png", "NextLevelHover.png", CC_CALLBACK_1(FinishLayer::onNextCallBack, this));
 		nextItem->setScale(144.0f / 949.0f * visibleSize.width / nextItem->getContentSize().width);
 		nextItem->setAnchorPoint(Vec2(0, 0));
-		nextItem->setPosition(812.0f / 949.0f * visibleSize.width, 430.0f / 554.0f  * visibleSize.height);
+		nextItem->setPosition(802.0f / 949.0f * visibleSize.width, 430.0f / 554.0f  * visibleSize.height);
 
 		auto menu = Menu::create(nextItem, NULL);
 		menu->setPosition(0, 0);
 		this->addChild(menu);
 
-		auto label1 = Label::createWithTTF("CONGRATULATIONS", "Cartoonist.ttf", 24);
+		auto label1 = Label::createWithTTF("CONGRATULATIONS\n \n", "cartoonist_kooky.ttf", 32);
 		label1->setAnchorPoint(Vec2(0, 1));
-		label1->setPosition(240.0f / 949.0f * visibleSize.width, 175.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label1->setPosition(186.0f / 949.0f * visibleSize.width, 190.0f / 554.0f * visibleSize.height);//!!!!to be modified
 		label1->setColor(Color3B(0x4c, 0x42, 0x34));
 		label1->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label1);
 
 		char text[20];
-		sprintf(text, "YOUR SCORE %.1lf", sc * 100);
-		auto label2 = Label::createWithTTF(text, "Cartoonist.ttf", 24);
+		sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
-		label2->setPosition(240.0f / 949.0f * visibleSize.width, 155.0f / 554.0f * visibleSize.height);//!!!!to be modified
-		label2->setColor(Color3B::YELLOW);
+		label2->setPosition(186.0f / 949.0f * visibleSize.width, 165.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label2->setColor(Color3B(0xf4, 0xb2, 0x1e));
 		label2->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label2);
 
-		auto label3 = Label::createWithTTF("THANK YOU!\nYOU JUST UNLOCK\nONE MORE SHAPE", "Cartoonist.ttf", 24);
+		auto label3 = Label::createWithTTF("THANK YOU!\nYOU JUST UNLOCK\nONE MORE SHAPE", "Cartoonist.ttf", 32);
 		label3->setAnchorPoint(Vec2(0, 1));
-		label3->setPosition(240.0f / 949.0f * visibleSize.width, 135.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label3->setPosition(186.0f / 949.0f * visibleSize.width, 140.0f / 554.0f * visibleSize.height);//!!!!to be modified
 		label3->setColor(Color3B(0x4c, 0x42, 0x34));
 		label3->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label3);
@@ -89,33 +89,33 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		this->addChild(robert);
 
 		auto retryItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(FinishLayer::onRetryCallBack, this));
-		retryItem->setScale(122.0f / 2017.0f * visibleSize.width / retryItem->getContentSize().width);
+		retryItem->setScale(129.0f / 949.0f * visibleSize.width / retryItem->getContentSize().width);
 		retryItem->setAnchorPoint(Vec2(0, 0));
-		retryItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
+		retryItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
 
 		auto menu = Menu::create(retryItem, NULL);
 		menu->setPosition(0, 0);
 		this->addChild(menu);
 
-		auto label1 = Label::createWithTTF("HAHAHA", "Cartoonist.ttf", 24);
+		auto label1 = Label::createWithTTF("HAHAHA\n \n", "cartoonist_kooky.ttf", 32);
 		label1->setAnchorPoint(Vec2(0, 1));
-		label1->setPosition(500.0f / 949.0f * visibleSize.width, 175.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label1->setPosition(573.0f / 949.0f * visibleSize.width, 175.0f / 554.0f * visibleSize.height);//!!!!to be modified
 		label1->setColor(Color3B(0x4c, 0x42, 0x34));
 		label1->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label1);
 
 		char text[20];
-		sprintf(text, "YOUR SCORE %.1lf", sc * 100);
-		auto label2 = Label::createWithTTF(text, "Cartoonist.ttf", 24);
+		sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
-		label2->setPosition(500.0f / 949.0f * visibleSize.width, 155.0f / 554.0f * visibleSize.height);//!!!!to be modified
-		label2->setColor(Color3B::YELLOW);
+		label2->setPosition(538.0f / 949.0f * visibleSize.width, 150.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label2->setColor(Color3B(0xe5, 0x2b, 0x25));
 		label2->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label2);
 
-		auto label3 = Label::createWithTTF("YOU MUST TRY\nAGAIN!", "Cartoonist.ttf", 24);
+		auto label3 = Label::createWithTTF("YOU MUST TRY AGAIN!", "cartoonist_kooky.ttf", 32);
 		label3->setAnchorPoint(Vec2(0, 1));
-		label3->setPosition(500.0f / 949.0f * visibleSize.width, 135.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label3->setPosition(503.0f / 949.0f * visibleSize.width, 125.0f / 554.0f * visibleSize.height);//!!!!to be modified
 		label3->setColor(Color3B(0x4c, 0x42, 0x34));
 		label3->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label3);

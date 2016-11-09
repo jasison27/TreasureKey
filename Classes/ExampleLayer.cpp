@@ -78,7 +78,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	timerframe->setPosition(870.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
 	this->addChild(timerframe);
 	
-	tme = Label::createWithTTF("05:00", "Cartoonist.ttf", 24);
+	tme = Label::createWithTTF("5", "Cartoonist.ttf", 43);
 	remainingT = 5.0;
 	tme->setColor(Color3B(0x4c, 0x42, 0x34));
 	tme->setPosition(timerframe->getPosition());
@@ -107,13 +107,17 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 #endif
 	}
 
+	auto oneTouch = EventListenerTouchOneByOne::create();
+	oneTouch->onTouchBegan = CC_CALLBACK_2(ExampleLayer::onTouchBegan, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
+
 	return true;
 }
 
 void ExampleLayer::update(float dt) {
 	remainingT -= dt;
 	if (remainingT < 0) {
-		tme->setString("00:00");
+		tme->setString("0");
 		remainingT = 0;
 		if (Util::getInstance()->getMusic()) {
 			SimpleAudioEngine::getInstance()->stopEffect(countEffect);
@@ -122,8 +126,8 @@ void ExampleLayer::update(float dt) {
 		this->removeFromParentAndCleanup(true);
 		return;
 	}
-	char todisplay[] = "xx:yy";
-	sprintf(todisplay, "0%d:%02d", int(remainingT), int( (remainingT - int(remainingT) ) * 60) );
+	char todisplay[] = "0";
+	todisplay[0] = '0' + ceil(remainingT);
 	tme->setString(todisplay);
 }
 
@@ -132,6 +136,19 @@ void ExampleLayer::resumeFromHelpLayer() {
 		SimpleAudioEngine::getInstance()->resumeEffect(countEffect);
 	}
 	this->scheduleUpdate();
+}
+
+bool ExampleLayer::onTouchBegan(Touch * touch, Event * event) {
+	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	if (pos < visibleSize*3.0f / 4.0f && pos > visibleSize*1.0f / 4.0f) {
+		if (Util::getInstance()->getMusic()) {
+			SimpleAudioEngine::getInstance()->stopEffect(countEffect);
+		}
+		container->onSkipCallBack();
+		this->removeFromParentAndCleanup(true);
+	}
+	return true;
 }
 
 void ExampleLayer::onSkipCallback(Ref* sender) {

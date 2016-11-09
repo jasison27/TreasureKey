@@ -55,7 +55,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	this->addChild(tmpDrawNode, 1);
 	exDrawNode = DrawNode::create();
 	Vec2 *expointer = &expoints[0];
-	exDrawNode->drawPoints(expointer, expoints.size(), 2, Color4F(Color3B(0xf4, 0xb2, 0x1e)));
+	exDrawNode->drawPoints(expointer, expoints.size(), 3, Color4F(Color3B(0xf4, 0xb2, 0x1e)));
 	exDrawNode->setVisible(false);
 	this->addChild(exDrawNode, 4);
 
@@ -71,9 +71,9 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	doneItem->setPosition( 11.3f / 949.0f * visibleSize.width, 462.0f / 554.0f * visibleSize.height);
 
 	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onCloseCallBack, this));
-	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setScale(129.0f / 949.0f * visibleSize.width / closeItem->getContentSize().width);
 	closeItem->setAnchorPoint(Vec2(0, 0));
-	closeItem->setPosition(1878.0f / 2017.0f * visibleSize.width, 1001.0f / 1135.0f  * visibleSize.height);
+	closeItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
 
 	settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(TouchDrawLayer::onSettingCallBack, this));
 	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
@@ -156,7 +156,7 @@ bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	cursor->setPosition(pos);
 	CCLOG("touch began: %.2lf %.2lf\n", pos.x, pos.y);
 	pointsTmp.push_back(pos);
-	tmpDrawNode->drawPoint(pos, 2, Color4F(Color3B(0x4c, 0x42, 0x34)));
+	tmpDrawNode->drawPoint(pos, 3, Color4F(Color3B(0x4c, 0x42, 0x34)));
 	return true;
 }
 
@@ -182,6 +182,6 @@ void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
 	pointsTmp.clear();
 	tmpDrawNode->clear();
 	Vec2 *pts = &pointsVec.back()[0];
-	drawNode->drawPoints(pts, pointsVec.back().size(), 2, Color4F(Color3B(0x4c, 0x42, 0x34)));
+	drawNode->drawPoints(pts, pointsVec.back().size(), 3, Color4F(Color3B(0x4c, 0x42, 0x34)));
 	CCLOG("#last added points: %d", pointsVec.back().size());
 }
