@@ -42,7 +42,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		sprintf(text, "CONGRATULATIONS\nYOUR SCORE %.1lf\nTHANK YOU!\nYOU JUST UNLOCK\nONE MORE SHAPE", sc * 100);
 		auto label = Label::createWithTTF(text, "Cartoonist.ttf", 24);
 		label->setPosition(visibleSize/2);//!!!!to be modified
-		label->setColor(Color3B::BLACK);
+		label->setColor(Color3B(0x4c, 0x42, 0x34));
 		label->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label);
 	}
@@ -66,7 +66,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		sprintf(text, "HAHAHA\nYOUR SCORE %.1lf\nYOU MUST TRY\nAGAIN!", sc * 100);
 		auto label = Label::createWithTTF(text, "Cartoonist.ttf", 24);
 		label->setPosition(visibleSize / 2);//!!!!to be modified
-		label->setColor(Color3B::BLACK);
+		label->setColor(Color3B(0x4c, 0x42, 0x34));
 		label->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label);
 	}

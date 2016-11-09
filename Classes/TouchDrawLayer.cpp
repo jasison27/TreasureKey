@@ -55,7 +55,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	this->addChild(tmpDrawNode, 1);
 	exDrawNode = DrawNode::create();
 	Vec2 *expointer = &expoints[0];
-	exDrawNode->drawPoints(expointer, expoints.size(), 2, Color4F::GRAY);
+	exDrawNode->drawPoints(expointer, expoints.size(), 2, Color4F(Color3B(0xf4, 0xb2, 0x1e)));
 	exDrawNode->setVisible(false);
 	this->addChild(exDrawNode, 4);
 
@@ -89,9 +89,9 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 
 void TouchDrawLayer::calcPoints() {
 	points.clear();
-	for (int i = 0; i < pointsVec.size(); ++i) {
-		int sz = pointsVec[i].size();
-		for (int j = 0; j < sz; ++j) {
+	for (size_t i = 0; i < pointsVec.size(); ++i) {
+		size_t sz = pointsVec[i].size();
+		for (size_t j = 0; j < sz; ++j) {
 			points.push_back(pointsVec[i][j]);
 		}
 	}
@@ -106,13 +106,13 @@ void TouchDrawLayer::onDoneCallback(Ref * sender) {
 	drawNode->clear();
 	calcPoints();
 	for (int i = 1; i < expoints.size(); ++i) {
-		drawNode->drawLine(expoints[i - 1], expoints[i], Color4F::RED);
+		drawNode->drawLine(expoints[i - 1], expoints[i], Color4F(Color3B(0xf4, 0xb2, 0x1e)));
 	}
-	drawNode->drawLine(expoints.back(), expoints.front(), Color4F::RED);
+	drawNode->drawLine(expoints.back(), expoints.front(), Color4F(Color3B(0xf4, 0xb2, 0x1e)));
 	for (int i = 1; i < points.size(); ++i) {
-		drawNode->drawLine(points[i - 1], points[i], Color4F::BLUE);
+		drawNode->drawLine(points[i - 1], points[i], Color4F(Color3B(0x4c, 0x42, 0x34)));
 	}
-	drawNode->drawLine(points.back(), points.front(), Color4F::BLUE);
+	drawNode->drawLine(points.back(), points.front(), Color4F(Color3B(0x4c, 0x42, 0x34)));
 	container->onFinishDrawCallBack();
 }
 
@@ -152,7 +152,7 @@ bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	cursor->setPosition(pos);
 	CCLOG("touch began: %.2lf %.2lf\n", pos.x, pos.y);
 	pointsTmp.push_back(pos);
-	tmpDrawNode->drawPoint(pos, 2, Color4F::BLACK);
+	tmpDrawNode->drawPoint(pos, 2, Color4F(Color3B(0x4c, 0x42, 0x34)));
 	return true;
 }
 
@@ -163,7 +163,7 @@ void TouchDrawLayer::onTouchMoved(Touch * touch, Event * event) {
 		return;
 	}
 	cursor->setPosition(pos);
-	tmpDrawNode->drawLine(pointsTmp.back(), pos, Color4F::BLACK);
+	tmpDrawNode->drawLine(pointsTmp.back(), pos, Color4F(Color3B(0x4c, 0x42, 0x34)));
 	pointsTmp.push_back(pos);
 }
 
@@ -178,6 +178,6 @@ void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
 	pointsTmp.clear();
 	tmpDrawNode->clear();
 	Vec2 *pts = &pointsVec.back()[0];
-	drawNode->drawPoints(pts, pointsVec.back().size(), 2, Color4F::BLACK);
+	drawNode->drawPoints(pts, pointsVec.back().size(), 2, Color4F(Color3B(0x4c, 0x42, 0x34)));
 	CCLOG("#last added points: %d", pointsVec.back().size());
 }

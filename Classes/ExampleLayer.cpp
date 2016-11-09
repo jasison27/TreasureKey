@@ -57,7 +57,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 
 	drawNode = DrawNode::create();
 	this->addChild(drawNode);
-	drawNode->drawPolygon(&points[0], npoints, Color4F::WHITE, 2, Color4F::BLACK);
+	drawNode->drawPolygon(&points[0], npoints, Color4F::WHITE, 2, Color4F(Color3B(0x4c, 0x42, 0x34)));
 
 	auto bubble = Sprite::create("Bubble-Text.png");
 	bubble->setScale(311.0 / 968.3f * visibleSize.width / bubble->getContentSize().width);
@@ -78,7 +78,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	
 	tme = Label::createWithTTF("05:00", "Cartoonist.ttf", 24);
 	remainingT = 5.0;
-	tme->setColor(Color3B::BLACK);
+	tme->setColor(Color3B(0x4c, 0x42, 0x34));
 	tme->setPosition(timerframe->getPosition());
 	this->addChild(tme);
 
