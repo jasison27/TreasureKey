@@ -1,7 +1,4 @@
 cocos2d
 proj.*
-!proj.android\jni\Android.mk
-!proj.android\project.properties
-!proj.win32\res
 .cocos-project.json
 CMakeLists.txt
