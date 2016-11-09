@@ -18,7 +18,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	int nv = num_vertex[level];
+	int nv = num_vertex[level-1];
 	if (nv == 0) {
 		for (int i = 0; i < 1000; ++ i) {
 			points.push_back(Vec2(cos(2*PI/1000*i), sin(2*PI/1000*i)));
