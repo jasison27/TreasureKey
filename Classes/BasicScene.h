@@ -17,6 +17,8 @@ public:
 	virtual void onSkipCallBack() = 0;
 	virtual void onIntroCallBack() = 0;
 	virtual void onFinishDrawCallBack() = 0;
+	virtual void onNextLevelCallBack() = 0;
+	virtual void onRetryLevelCallBack() = 0;
 };
 
 #endif

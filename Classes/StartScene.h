@@ -23,6 +23,8 @@ public:
 	virtual void onSkipCallBack();
 	virtual void onIntroCallBack();
 	virtual void onFinishDrawCallBack();
+	virtual void onNextLevelCallBack();
+	virtual void onRetryLevelCallBack();
 private:
 	int current_theme;
 	int current_level;

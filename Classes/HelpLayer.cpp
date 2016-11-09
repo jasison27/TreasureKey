@@ -79,8 +79,6 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 
 	auto oneTouch = EventListenerTouchOneByOne::create();
 	oneTouch->onTouchBegan = CC_CALLBACK_2(HelpLayer::onTouchBegan, this);
-	oneTouch->onTouchMoved = CC_CALLBACK_2(HelpLayer::onTouchMoved, this);
-	oneTouch->onTouchEnded = CC_CALLBACK_2(HelpLayer::onTouchEnded, this);
 	oneTouch->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 

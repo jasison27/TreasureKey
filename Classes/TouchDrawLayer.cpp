@@ -56,7 +56,8 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	exDrawNode = DrawNode::create();
 	Vec2 *expointer = &expoints[0];
 	exDrawNode->drawPoints(expointer, expoints.size(), 2, Color4F::GRAY);
-	this->addChild(exDrawNode, -1);
+	exDrawNode->setVisible(false);
+	this->addChild(exDrawNode, 4);
 
 	box = Sprite::create("ChestBoxBeforeFinish.png");
 	box->setScale(197.0f / 968.3f * visibleSize.width / box->getContentSize().width);
@@ -102,8 +103,17 @@ void TouchDrawLayer::onCloseCallBack(Ref* pSender) {
 }
 
 void TouchDrawLayer::onDoneCallback(Ref * sender) {
+	drawNode->clear();
+	calcPoints();
+	for (int i = 1; i < expoints.size(); ++i) {
+		drawNode->drawLine(expoints[i - 1], expoints[i], Color4F::RED);
+	}
+	drawNode->drawLine(expoints.back(), expoints.front(), Color4F::RED);
+	for (int i = 1; i < points.size(); ++i) {
+		drawNode->drawLine(points[i - 1], points[i], Color4F::BLUE);
+	}
+	drawNode->drawLine(points.back(), points.front(), Color4F::BLUE);
 	container->onFinishDrawCallBack();
-	this->removeFromParentAndCleanup(true);
 }
 
 void TouchDrawLayer::onSettingCallBack(Ref * sender) {
@@ -111,12 +121,19 @@ void TouchDrawLayer::onSettingCallBack(Ref * sender) {
 }
 
 float TouchDrawLayer::calcSimilarity() {
-	calcPoints();
 	float similarity = 0;
 	if (points.size() > 5) {
 		similarity = Util::getInstance()->calcSimilarity(expoints, points, Director::getInstance()->getVisibleSize());
 	}
 	return similarity;
+}
+
+void TouchDrawLayer::getRetry() {
+	points.clear();
+	pointsTmp.clear();
+	pointsVec.clear();;
+	drawNode->clear();;
+	tmpDrawNode->clear();
 }
 
 bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
@@ -125,7 +142,8 @@ bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	auto pos = Director::getInstance()->convertToUI(touch->getLocationInView());
 	if (box->getBoundingBox().containsPoint(pos)) {
 		hint = true;
-		exDrawNode->setZOrder(4);
+		exDrawNode->setVisible(true);
+		//exDrawNode->setZOrder(4);
 		return true;
 	}
 	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || doneItem->getBoundingBox().containsPoint(pos) || closeItem->getBoundingBox().containsPoint(pos) || settingItem->getBoundingBox().containsPoint(pos)) {
@@ -152,7 +170,8 @@ void TouchDrawLayer::onTouchMoved(Touch * touch, Event * event) {
 void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
 	if (hint) {
 		hint = false;
-		exDrawNode->setZOrder(-1);
+		exDrawNode->setVisible(false);
+		//exDrawNode->setZOrder(-1);
 		return;
 	}
 	pointsVec.push_back(Util::getInstance()->smoothify(pointsTmp));

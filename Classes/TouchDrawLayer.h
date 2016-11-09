@@ -19,6 +19,7 @@ public:
 	void onDoneCallback(Ref *sender);
 	void onSettingCallBack(Ref *sender);
 	float calcSimilarity();
+	void getRetry();
 private:
 	void calcPoints();
 	BasicScene* container;
