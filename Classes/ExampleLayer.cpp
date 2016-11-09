@@ -97,13 +97,15 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	this->addChild(menu);
 
 	this->scheduleUpdate();
+	if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.wav", true);
+		countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.wav", true);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.ogg", true);
+		countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.ogg", true);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.caf", true);
+		countEffect = SimpleAudioEngine::getInstance()->playEffect("countDown.caf", true);
 #endif
+	}
 
 	return true;
 }
@@ -113,6 +115,9 @@ void ExampleLayer::update(float dt) {
 	if (remainingT < 0) {
 		tme->setString("00:00");
 		remainingT = 0;
+		if (Util::getInstance()->getMusic()) {
+			SimpleAudioEngine::getInstance()->stopEffect(countEffect);
+		}
 		container->onSkipCallBack();
 		this->removeFromParentAndCleanup(true);
 		return;
@@ -123,32 +128,26 @@ void ExampleLayer::update(float dt) {
 }
 
 void ExampleLayer::resumeFromHelpLayer() {
-	SimpleAudioEngine::getInstance()->resumeEffect(countEffect);
+	if (Util::getInstance()->getMusic()) {
+		SimpleAudioEngine::getInstance()->resumeEffect(countEffect);
+	}
 	this->scheduleUpdate();
 }
 
 void ExampleLayer::onSkipCallback(Ref* sender) {
-	SimpleAudioEngine::getInstance()->stopEffect(countEffect);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	if (Util::getInstance()->getMusic()) {
+		SimpleAudioEngine::getInstance()->stopEffect(countEffect);
+	}
+	Util::getInstance()->playClick();
 	container->onSkipCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void ExampleLayer::onSettingCallBack(Ref * sender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
-	SimpleAudioEngine::getInstance()->pauseEffect(countEffect);
+	Util::getInstance()->playClick();
+	if (Util::getInstance()->getMusic()) {
+		SimpleAudioEngine::getInstance()->pauseEffect(countEffect);
+	}
 	this->unscheduleUpdate();
 	container->onSettingCallBack(EXAMPLE_LAYER);
 }

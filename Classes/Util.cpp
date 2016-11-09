@@ -1,10 +1,13 @@
 #include "Util.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 static Util *s_SharedUtil = nullptr;
 
 Util* Util::getInstance() {
 	if (!s_SharedUtil) {
 		s_SharedUtil = new Util();
+		s_SharedUtil->music = UserDefault::getInstance()->getBoolForKey("Music");
 	}
 	return s_SharedUtil;
 }
@@ -123,4 +126,25 @@ std::vector<Vec2> Util::smoothify(std::vector<Vec2>& pts) {
 		ret.push_back(q);
 	}
 	return ret;
+}
+
+void Util::setMusic(bool flag) {
+	UserDefault::getInstance()->setIntegerForKey("Music", true);
+	s_SharedUtil->music = flag;
+}
+
+bool Util::getMusic() {
+	return s_SharedUtil->music;
+}
+
+void Util::playClick() {
+	if (s_SharedUtil->music) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+		SimpleAudioEngine::getInstance()->playEffect("click.wav");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		SimpleAudioEngine::getInstance()->playEffect("click.ogg");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+		SimpleAudioEngine::getInstance()->playEffect("click.caf");
+#endif
+	}
 }

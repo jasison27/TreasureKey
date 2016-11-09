@@ -25,13 +25,15 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
 	if (sc > 0.7) {
+		if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		SimpleAudioEngine::getInstance()->playEffect("success.wav");
+			SimpleAudioEngine::getInstance()->playEffect("pass.wav");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		SimpleAudioEngine::getInstance()->playEffect("success.ogg");
+			SimpleAudioEngine::getInstance()->playEffect("pass.ogg");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		SimpleAudioEngine::getInstance()->playEffect("success.caf");
+			SimpleAudioEngine::getInstance()->playEffect("pass.caf");
 #endif
+		}
 		auto mandy = Sprite::create("MandyWin.png");
 		mandy->setAnchorPoint(Vec2(0, 0));
 		mandy->setPosition(0, 0);
@@ -71,13 +73,15 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		this->addChild(label3);
 	}
 	else {
+		if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		SimpleAudioEngine::getInstance()->playEffect("fail.wav");
+			SimpleAudioEngine::getInstance()->playEffect("fail.wav");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		SimpleAudioEngine::getInstance()->playEffect("fail.ogg");
+			SimpleAudioEngine::getInstance()->playEffect("fail.ogg");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-		SimpleAudioEngine::getInstance()->playEffect("fail.caf");
+			SimpleAudioEngine::getInstance()->playEffect("fail.caf");
 #endif
+		}
 		auto robert = Sprite::create("LooseRoberto.png");
 		robert->setAnchorPoint(Vec2(1, 0));
 		robert->setPosition(visibleSize.width, 0);
@@ -128,25 +132,13 @@ bool FinishLayer::onTouchBegan(Touch * touch, Event * event) {
 }
 
 void FinishLayer::onNextCallBack(Ref * ref) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onNextLevelCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void FinishLayer::onRetryCallBack(Ref * ref) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onRetryLevelCallBack();
 	this->removeFromParentAndCleanup(true);
 }

@@ -1,7 +1,5 @@
 #include "LevelLayer.h"
 #include "Util.h"
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
 const float px[] = { 3.0f, 101.0f, 198.0f, 294.0f, 391.0f };
 const float py[] = { 123.0f, 174.0f, 227.0f, 267.0f, 306.0f };
@@ -72,13 +70,7 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 }
 
 void LevelLayer::onSelectLevelCallBack(Ref * ref) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	auto item = (MenuItemImage*)ref;
 	int tag = item->getTag();
 
@@ -87,25 +79,13 @@ void LevelLayer::onSelectLevelCallBack(Ref * ref) {
 }
 
 void LevelLayer::onSettingCallBack(Ref * ref) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onSettingCallBack(LEVEL_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 
 void LevelLayer::onCloseCallBack(Ref * ref) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onRemoveIntroLayerCallBack(); // last theme
 	this->removeFromParentAndCleanup(true);
 }

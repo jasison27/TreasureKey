@@ -1,6 +1,4 @@
 #include "ThemeLayer.h"
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
 
 ThemeLayer * ThemeLayer::createWithTheme(BasicScene* fa, int themen) {
 	ThemeLayer * ret = ThemeLayer::create();
@@ -48,13 +46,7 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 }
 
 void ThemeLayer::onSettingCallBack(Ref * pSender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onSettingCallBack(THEME_LAYER);
 	this->removeFromParentAndCleanup(true);
 }

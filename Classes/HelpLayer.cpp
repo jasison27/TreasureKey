@@ -1,6 +1,5 @@
 #include "HelpLayer.h"
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
+#include "Util.h"
 
 HelpLayer * HelpLayer::createWithOption(BasicScene* fa, LayerEnum lenum) {
 	HelpLayer* ret = HelpLayer::create();
@@ -39,6 +38,17 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 	intro->setAnchorPoint(Vec2(0, 0));
 	intro->setPosition(76.0f / 2017.0f * visibleSize.width, 479.0f / 1135.0f * visibleSize.height);
 	menu->addChild(intro);
+
+	if (Util::getInstance()->getMusic()) {
+		itemMusic = MenuItemImage::create("SoundOn.png", "SoundOn.png", CC_CALLBACK_1(HelpLayer::onMusicCallBack, this));
+	}
+	else {
+		itemMusic = MenuItemImage::create("SoundOff.png", "SoundOff.png", CC_CALLBACK_1(HelpLayer::onMusicCallBack, this));
+	}
+	itemMusic->setScale(543.0f / 2017.0f * visibleSize.width / itemMusic->getContentSize().width);
+	itemMusic->setAnchorPoint(Vec2(0, 0));
+	itemMusic->setPosition(76.0f / 2017.0f * visibleSize.width, 104.0f / 1135.0f * visibleSize.height);
+	menu->addChild(itemMusic);
 
 	auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(HelpLayer::menuCloseCallBack, this));
 	closeItem->setScale(122.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
@@ -88,53 +98,45 @@ bool HelpLayer::initWithOption(BasicScene* fa, LayerEnum lenum) {
 }
 
 void HelpLayer::menuThemeCallBack(Ref * pSender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onRemoveIntroLayerCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuLevelCallBack(Ref * pSender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onSelectThemeCallBack(0); // last theme
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuIntroCallBack(Ref * pSender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onIntroCallBack();
 	this->removeFromParentAndCleanup(true);
 }
 
 void HelpLayer::menuCloseCallBack(Ref * pSender) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	SimpleAudioEngine::getInstance()->playEffect("click.wav");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	SimpleAudioEngine::getInstance()->playEffect("click.ogg");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	SimpleAudioEngine::getInstance()->playEffect("click.caf");
-#endif
+	Util::getInstance()->playClick();
 	container->onHelpCloseCallBack(mylenum);
 	this->removeFromParentAndCleanup(true);
 }
 
 bool HelpLayer::onTouchBegan(Touch * touch, Event * event) {
 	return true;
+}
+
+void HelpLayer::onMusicCallBack(Ref* ref) {
+	if (Util::getInstance()->getMusic()) {
+		Util::getInstance()->setMusic(false);
+		auto pic = Sprite::create("SoundOff.png");
+		itemMusic->setNormalImage(pic);
+		itemMusic->setSelectedImage(pic);
+	}
+	else {
+		Util::getInstance()->setMusic(true);
+		Util::getInstance()->playClick();
+		auto pic = Sprite::create("SoundOn.png");
+		itemMusic->setNormalImage(pic);
+		itemMusic->setSelectedImage(pic);
+	}
 }

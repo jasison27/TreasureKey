@@ -17,6 +17,8 @@ public:
 	void menuCloseCallBack(Ref *pSender);
 	bool onTouchBegan(Touch *touch, Event *event);
 private:
+	MenuItemImage* itemMusic;
+	void onMusicCallBack(Ref* ref);
 	BasicScene* container;
 	LayerEnum mylenum;
 };

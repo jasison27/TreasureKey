@@ -26,6 +26,11 @@ public:
 	static bool inPolygon(Vec2 p, std::vector<Vec2> &v);
 	static double calcSimilarity(std::vector<Vec2> &a, std::vector<Vec2> &b, Size visibleSize);
 	static std::vector<Vec2> smoothify(std::vector<Vec2> &pts);
+	static void setMusic(bool flag);
+	static bool getMusic();
+	static void playClick();
+private:
+	bool music;
 };
 
 #endif
