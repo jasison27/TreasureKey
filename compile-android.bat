@@ -1,1 +1,1 @@
-cocos compile -p android
+cocos compile -p android -m release --ndk-mode release
