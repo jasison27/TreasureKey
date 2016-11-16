@@ -63,8 +63,9 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 
 	auto bubble = Sprite::create("Bubble-Text.png");
 	bubble->setScale(311.0 / 968.3f * visibleSize.width / bubble->getContentSize().width);
-	bubble->setAnchorPoint(Vec2::ZERO);
-	bubble->setPosition(0, 330.0f / 544.65f * visibleSize.height);
+	bubble->setAnchorPoint(Vec2(0,1));
+	bubble->setPosition(0, visibleSize.height);
+	//bubble->setPosition(0, 330.0f / 544.65f * visibleSize.height);
 	this->addChild(bubble);
 
 	auto box = Sprite::create("ChestBoxBeforeFinish.png");
@@ -72,28 +73,16 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	box->setAnchorPoint(Vec2::ZERO);
 	box->setPosition(0, 0);
 	this->addChild(box);
-	//timer counting down animation
-    auto timerframe = Sprite::create("timer_00.png");
-	timerframe->setScale(143.0f / 968.3f * visibleSize.width / timerframe->getContentSize().width);
-	timerframe->setPosition(880.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
-	this->addChild(timerframe);
-	auto animation = Animation::create();
-	for (int i = 1; i < 4; i++)
-	{
-		char str[50];
-		sprintf(str, "timer_%02d.png", i);
-		animation->addSpriteFrameWithFileName(str);
-	}
-	animation->setRestoreOriginalFrame(true); 
-	animation->setDelayPerUnit(2.0f / 14.0f);   
-	animation->setLoops(-1);    
-	auto animate = Animate::create(animation);
-	timerframe->runAction(animate);
-	//end of time counting down animation
+
+	timer = Sprite::create("timer_00.png");
+	timer->setScale(143.0f / 968.3f * visibleSize.width / timer->getContentSize().width);
+	timer->setPosition(880.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
+	this->addChild(timer);
+
 	tme = Label::createWithTTF("5", "Cartoonist.ttf", 43);
 	remainingT = 5.0;
 	tme->setColor(Color3B(0x4c, 0x42, 0x34));
-	tme->setPosition(timerframe->getPosition());
+	tme->setPosition(timer->getPosition());
 	this->addChild(tme);
 
 	auto skipItem = MenuItemImage::create("Skip.png", "SkipHover.png", CC_CALLBACK_1(ExampleLayer::onSkipCallback, this));
@@ -141,6 +130,9 @@ void ExampleLayer::update(float dt) {
 	char todisplay[] = "0";
 	todisplay[0] = '0' + ceil(remainingT);
 	tme->setString(todisplay);
+	char timerName[] = "timer_00.png";
+	timerName[7] = '0' + 5-ceil(remainingT);
+	timer->setTexture(timerName);
 }
 
 void ExampleLayer::resumeFromHelpLayer() {

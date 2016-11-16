@@ -21,6 +21,7 @@ private:
 	int theme, level;
 	BasicScene * container;
 	Label *tme;
+	Sprite *timer;
 	int countEffect;
 	float remainingT;
 	DrawNode *drawNode;

@@ -25,9 +25,9 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
 	auto backToLevelItem = MenuItemImage::create("levels.png", "levelsHover.png", CC_CALLBACK_1(FinishLayer::onBackToLevelCallBack, this));
-	backToLevelItem->setScale(144.0f / 949.0f * visibleSize.width / backToLevelItem->getContentSize().width);
+	backToLevelItem->setScale(687.0f / 2017.0f * visibleSize.width / backToLevelItem->getContentSize().width);
 	backToLevelItem->setAnchorPoint(Vec2(0, 0));
-	backToLevelItem->setPosition(802.0f / 949.0f * visibleSize.width, 300.0f / 554.0f  * visibleSize.height);
+	backToLevelItem->setPosition(1320.0f / 2017.0f * visibleSize.width, 735.0f / 1135.0f  * visibleSize.height);
 
 	if (sc > 0.7) {
 		if (Util::getInstance()->getMusic()) {
