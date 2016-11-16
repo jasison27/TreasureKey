@@ -72,12 +72,24 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	box->setAnchorPoint(Vec2::ZERO);
 	box->setPosition(0, 0);
 	this->addChild(box);
-
-	auto timerframe = Sprite::create("Time.png");
-	timerframe->setScale(173.0f / 968.3f * visibleSize.width / timerframe->getContentSize().width);
-	timerframe->setPosition(870.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
+	//timer counting down animation
+    auto timerframe = Sprite::create("timer_00.png");
+	timerframe->setScale(143.0f / 968.3f * visibleSize.width / timerframe->getContentSize().width);
+	timerframe->setPosition(880.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
 	this->addChild(timerframe);
-	
+	auto animation = Animation::create();
+	for (int i = 1; i < 4; i++)
+	{
+		char str[50];
+		sprintf(str, "timer_%02d.png", i);
+		animation->addSpriteFrameWithFileName(str);
+	}
+	animation->setRestoreOriginalFrame(true); 
+	animation->setDelayPerUnit(2.0 / 14.0);   
+	animation->setLoops(-1);    
+	auto animate = Animate::create(animation);
+	timerframe->runAction(animate);
+	//end of time counting down animation
 	tme = Label::createWithTTF("5", "Cartoonist.ttf", 43);
 	remainingT = 5.0;
 	tme->setColor(Color3B(0x4c, 0x42, 0x34));

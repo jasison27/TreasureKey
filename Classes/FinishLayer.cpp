@@ -24,7 +24,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 	oneTouch->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
-	if (sc > 0.8) {
+	if (sc > 0.7) {
 		if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 			SimpleAudioEngine::getInstance()->playEffect("pass.wav");
@@ -43,7 +43,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		auto nextItem = MenuItemImage::create("NextLevel.png", "NextLevelHover.png", CC_CALLBACK_1(FinishLayer::onNextCallBack, this));
 		nextItem->setScale(144.0f / 949.0f * visibleSize.width / nextItem->getContentSize().width);
 		nextItem->setAnchorPoint(Vec2(0, 0));
-		nextItem->setPosition(802.0f / 949.0f * visibleSize.width, 430.0f / 554.0f  * visibleSize.height);
+		nextItem->setPosition(802.0f / 949.0f * visibleSize.width, 440.0f / 554.0f  * visibleSize.height);
 
 		auto menu = Menu::create(nextItem, NULL);
 		menu->setPosition(0, 0);
@@ -57,10 +57,23 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		this->addChild(label1);
 
 		char text[20];
-		sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		//sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		if(sc<=0.8){
+		sprintf(text, "Fair drawing!\n \n");
+		}
+		else if ((sc > 0.8)&&(sc <= 0.9)) {
+			sprintf(text, "Good drawing!\n \n");
+		}
+		else if ((sc > 0.9)&&(sc <= 0.95)) {
+			sprintf(text, "Great drawing!\n \n");
+		}
+		else {
+			sprintf(text, "Excellent drawing!\n \n");
+		}
+
 		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
-		label2->setPosition(186.0f / 949.0f * visibleSize.width, 165.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label2->setPosition(196.0f / 949.0f * visibleSize.width, 165.0f / 554.0f * visibleSize.height);//!!!!to be modified
 		label2->setColor(Color3B(0xf4, 0xb2, 0x1e));
 		label2->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label2);
@@ -88,10 +101,10 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		robert->setScale(954.0f / 2.0f / 949.0f * visibleSize.width / robert->getContentSize().width);
 		this->addChild(robert);
 
-		auto retryItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(FinishLayer::onRetryCallBack, this));
-		retryItem->setScale(129.0f / 949.0f * visibleSize.width / retryItem->getContentSize().width);
+		auto retryItem = MenuItemImage::create("try.png", "tryHover.png", CC_CALLBACK_1(FinishLayer::onRetryCallBack, this));
+		retryItem->setScale(144.0f / 949.0f * visibleSize.width / retryItem->getContentSize().width);
 		retryItem->setAnchorPoint(Vec2(0, 0));
-		retryItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
+		retryItem->setPosition(802.0f / 949.0f * visibleSize.width, 440.0f / 554.0f  * visibleSize.height);
 
 		auto menu = Menu::create(retryItem, NULL);
 		menu->setPosition(0, 0);
@@ -105,7 +118,13 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		this->addChild(label1);
 
 		char text[20];
-		sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		//sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
+		if (sc>0.6) {
+			sprintf(text, "Poor drawing!\n \n");
+		}
+		else {
+			sprintf(text, "Bad drawing!\n \n");
+		}
 		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
 		label2->setPosition(538.0f / 949.0f * visibleSize.width, 150.0f / 554.0f * visibleSize.height);//!!!!to be modified

@@ -59,7 +59,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	exDrawNode->setVisible(false);
 	this->addChild(exDrawNode, 4);
 
-	box = Sprite::create("ChestBoxBeforeFinish.png");
+	box = Sprite::create("chestboxhint.png");
 	box->setScale(197.0f / 968.3f * visibleSize.width / box->getContentSize().width);
 	box->setAnchorPoint(Vec2::ZERO);
 	box->setPosition(0, 0);
@@ -71,9 +71,9 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	doneItem->setPosition( 11.3f / 949.0f * visibleSize.width, 462.0f / 554.0f * visibleSize.height);
 
 	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onCloseCallBack, this));
-	closeItem->setScale(129.0f / 949.0f * visibleSize.width / closeItem->getContentSize().width);
+	closeItem->setScale(103.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
 	closeItem->setAnchorPoint(Vec2(0, 0));
-	closeItem->setPosition(1720.0f / 2017.0f * visibleSize.width, 980.0f / 1135.0f  * visibleSize.height);
+	closeItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 1015.0f / 1135.0f  * visibleSize.height);
 
 	settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(TouchDrawLayer::onSettingCallBack, this));
 	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);

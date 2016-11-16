@@ -11,7 +11,7 @@ bool StartLayer::initWithTime(BasicScene* fa, float dt) {
 
 	remainingT = dt;
 
-	auto cg = Sprite::create("StartingScreenLandscape.png");
+	auto cg = Sprite::create("Backgroundforscene0.png");
 	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
 	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);

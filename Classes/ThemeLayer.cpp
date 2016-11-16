@@ -18,8 +18,8 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg);
 
-	mandy = Sprite::create("mandy.png");
-	mandy->setScale(196.0f / 2017.0f * visibleSize.width / mandy->getContentSize().width);
+	mandy = Sprite::create("Mandy_00.png");
+	mandy->setScale(106.0f / 2017.0f * visibleSize.width / mandy->getContentSize().width);
 	mandy->setAnchorPoint(Vec2(0, 0));
 	mandy->setPosition(50.0f / 2017.0f * visibleSize.width, 905.0f / 1135.0f * visibleSize.height);
 	this->addChild(mandy, 2);
@@ -28,9 +28,9 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 
 	auto poly = MenuItemImage::create("theme1.png", "theme1.png", CC_CALLBACK_1(ThemeLayer::onSelectThemeCallBack, this));
 	poly->setTag(1);
-	poly->setScale(251.0f / 2017.0f * visibleSize.width / poly->getContentSize().width);
+	poly->setScale(201.0f / 2017.0f * visibleSize.width / poly->getContentSize().width);
 	poly->setAnchorPoint(Vec2(0, 0));
-	poly->setPosition(629.0f / 2017.0f * visibleSize.width, 929.0f / 1135.0f * visibleSize.height);
+	poly->setPosition(609.0f / 2017.0f * visibleSize.width, 909.0f / 1135.0f * visibleSize.height);
 	menu->addChild(poly);
 
 	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(ThemeLayer::onSettingCallBack, this));
