@@ -7,7 +7,7 @@ static Util *s_SharedUtil = nullptr;
 Util* Util::getInstance() {
 	if (!s_SharedUtil) {
 		s_SharedUtil = new Util();
-		s_SharedUtil->music = UserDefault::getInstance()->getBoolForKey("Music");
+		s_SharedUtil->music = true;
 	}
 	return s_SharedUtil;
 }
@@ -79,26 +79,6 @@ double Util::calcSimilarity(std::vector<Vec2> &a, std::vector<Vec2> &b, Size vis
 	int total = 10000, cnt = 0;
 	for (int i = 0; i < total; ++i) {
 		Vec2 p = Vec2(Util::randomAB(minx, maxx), Util::randomAB(miny, maxy));
-		/*
-		if (Util::inPolygon(p, a)) {
-			if (Util::inPolygon(p, b)) {
-				drawNode->drawPoint(p, 1, Color4F::BLACK);
-				cnt ++;
-			}
-			else {
-				drawNode->drawPoint(p, 1, Color4F::GRAY);
-			}
-		}
-		else {
-			if (Util::inPolygon(p, b)) {
-				drawNode->drawPoint(p, 1, Color4F::GREEN);
-			}
-			else {
-				drawNode->drawPoint(p, 1, Color4F::ORANGE);
-				cnt ++;
-			}
-		}
-		*/
 		if (Util::inPolygon(p, a) == Util::inPolygon(p, b)) cnt++;
 	}
 	double similarity = cnt*1.0 / total;
@@ -129,7 +109,6 @@ std::vector<Vec2> Util::smoothify(std::vector<Vec2>& pts) {
 }
 
 void Util::setMusic(bool flag) {
-	UserDefault::getInstance()->setBoolForKey("Music", flag);
 	s_SharedUtil->music = flag;
 }
 

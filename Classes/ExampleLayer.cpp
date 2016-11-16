@@ -65,7 +65,6 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	bubble->setScale(311.0 / 968.3f * visibleSize.width / bubble->getContentSize().width);
 	bubble->setAnchorPoint(Vec2(0,1));
 	bubble->setPosition(0, visibleSize.height);
-	//bubble->setPosition(0, 330.0f / 544.65f * visibleSize.height);
 	this->addChild(bubble);
 
 	auto box = Sprite::create("ChestBoxBeforeFinish.png");
@@ -79,7 +78,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	timer->setPosition(880.0f / 968.3f * visibleSize.width, 490.0f / 544.65f * visibleSize.height);
 	this->addChild(timer);
 
-	tme = Label::createWithTTF("5", "Cartoonist.ttf", 43);
+	tme = Label::createWithTTF("5", "cartoonist_kooky.ttf", 43);
 	remainingT = 5.0;
 	tme->setColor(Color3B(0x4c, 0x42, 0x34));
 	tme->setPosition(timer->getPosition());
@@ -128,11 +127,15 @@ void ExampleLayer::update(float dt) {
 		return;
 	}
 	char todisplay[] = "0";
-	todisplay[0] = '0' + ceil(remainingT);
+	int rT = ceil(remainingT);
+	todisplay[0] = '0' + rT;
 	tme->setString(todisplay);
-	char timerName[] = "timer_00.png";
-	timerName[7] = '0' + 5-ceil(remainingT);
-	timer->setTexture(timerName);
+	if (ceil(remainingT) != ceil(remainingT + dt) && rT >= 0 && rT <= 4) {
+		char timerName[] = "timer_00.png";
+		timerName[7] = '0' + 5 - rT;
+		CCLOG("%s", timerName);
+		timer->setTexture(timerName);
+	}
 }
 
 void ExampleLayer::resumeFromHelpLayer() {

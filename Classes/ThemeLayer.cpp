@@ -57,6 +57,7 @@ void ThemeLayer::enterTheme(int tag) {
 }
 
 void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
+	Util::getInstance()->playClick();
 	auto item = (MenuItemImage*)pSender;
 	item->setEnabled(false);
 	int tag = item->getTag();
@@ -68,12 +69,9 @@ void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
 	char str[20];
 	for (int i = 0; i <= 4; i++) {
 		sprintf(str, "Mandy_%02d.png", i);
-		animation->addSpriteFrameWithFileName(str);
+		animation->addSpriteFrameWithFile(str);
 	}
 	animation->setDelayPerUnit(2.0f / 14.0f);
-	//animation->setRestoreOriginalFrame(true);
-	//animation->setDelayPerUnit(2.0 / 14.0);
-	//animation->setLoops(-1);
 	auto animate = RepeatForever::create(Animate::create(animation));
 	auto callBack = CallFunc::create(CC_CALLBACK_0(ThemeLayer::enterTheme, this, tag));
 	mandy->runAction(animate);

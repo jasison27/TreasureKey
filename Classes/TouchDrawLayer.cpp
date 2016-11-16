@@ -24,7 +24,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 
 	pointsTmp.clear();
 	pointsVec.clear();
-	//this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
 	auto oneTouch = EventListenerTouchOneByOne::create();
 	oneTouch->onTouchBegan = CC_CALLBACK_2(TouchDrawLayer::onTouchBegan, this);
 	oneTouch->onTouchMoved = CC_CALLBACK_2(TouchDrawLayer::onTouchMoved, this);
@@ -39,9 +39,7 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 
 	auto cgbg = LayerColor::create(Color4B::WHITE);
 	cgbg->setContentSize(Size(900.0f / 969.0f * visibleSize.width, 490.0f / 554.0f * visibleSize.height));
-	//cgbg->setAnchorPoint(Vec2(0.5, 0.5));
 	cgbg->setPosition(34.5f / 969.0f * visibleSize.width, 32.0f / 554.0f * visibleSize.height);
-	//cgbg->setPosition((visibleSize - cgbg->getContentSize()) / 2);
 	this->addChild(cgbg, 0);
 
 	l = 34.5f / 969.0f * visibleSize.width;
@@ -148,7 +146,6 @@ bool TouchDrawLayer::onTouchBegan(Touch * touch, Event * event) {
 	if (box->getBoundingBox().containsPoint(pos)) {
 		hint = true;
 		exDrawNode->setVisible(true);
-		//exDrawNode->setZOrder(4);
 		return true;
 	}
 	if (pos.x <= l || pos.x >= r || pos.y <= d || pos.y >= u || closeItem->getBoundingBox().containsPoint(pos) || settingItem->getBoundingBox().containsPoint(pos)) {
@@ -176,7 +173,6 @@ void TouchDrawLayer::onTouchEnded(Touch * touch, Event * event) {
 	if (hint) {
 		hint = false;
 		exDrawNode->setVisible(false);
-		//exDrawNode->setZOrder(-1);
 		return;
 	}
 	pointsVec.push_back(Util::getInstance()->smoothify(pointsTmp));

@@ -53,7 +53,6 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 
 	duration = dt;
 
-	//this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
 	auto oneTouch = EventListenerTouchOneByOne::create();
 	oneTouch->onTouchBegan = CC_CALLBACK_2(IntroLayer::onTouchBegan, this);
 	oneTouch->onTouchMoved = CC_CALLBACK_2(IntroLayer::onTouchMoved, this);

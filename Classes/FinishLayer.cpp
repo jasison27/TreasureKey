@@ -56,13 +56,12 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 
 		auto label1 = Label::createWithTTF("CONGRATULATIONS\n \n", "cartoonist_kooky.ttf", 32);
 		label1->setAnchorPoint(Vec2(0, 1));
-		label1->setPosition(186.0f / 949.0f * visibleSize.width, 190.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label1->setPosition(186.0f / 949.0f * visibleSize.width, 190.0f / 554.0f * visibleSize.height);
 		label1->setColor(Color3B(0x4c, 0x42, 0x34));
 		label1->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label1);
 
 		char text[20];
-		//sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
 		if(sc<=0.8){
 		sprintf(text, "Fair drawing!\n \n");
 		}
@@ -78,14 +77,14 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 
 		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
-		label2->setPosition(196.0f / 949.0f * visibleSize.width, 165.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label2->setPosition(196.0f / 949.0f * visibleSize.width, 165.0f / 554.0f * visibleSize.height);
 		label2->setColor(Color3B(0xf4, 0xb2, 0x1e));
 		label2->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label2);
 
-		auto label3 = Label::createWithTTF("THANK YOU!\nYOU JUST UNLOCK\nONE MORE SHAPE", "Cartoonist.ttf", 32);
+		auto label3 = Label::createWithTTF("THANK YOU!\nYOU JUST UNLOCK\nONE MORE SHAPE", "cartoonist_kooky.ttf", 32);
 		label3->setAnchorPoint(Vec2(0, 1));
-		label3->setPosition(186.0f / 949.0f * visibleSize.width, 140.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label3->setPosition(186.0f / 949.0f * visibleSize.width, 140.0f / 554.0f * visibleSize.height);
 		label3->setColor(Color3B(0x4c, 0x42, 0x34));
 		label3->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label3);
@@ -117,13 +116,12 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 
 		auto label1 = Label::createWithTTF("HAHAHA\n \n", "cartoonist_kooky.ttf", 32);
 		label1->setAnchorPoint(Vec2(0, 1));
-		label1->setPosition(573.0f / 949.0f * visibleSize.width, 175.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label1->setPosition(573.0f / 949.0f * visibleSize.width, 175.0f / 554.0f * visibleSize.height);
 		label1->setColor(Color3B(0x4c, 0x42, 0x34));
 		label1->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label1);
 
 		char text[20];
-		//sprintf(text, "YOUR SCORE %d\n \n", int(sc * 100));
 		if (sc>0.6) {
 			sprintf(text, "Poor drawing!\n \n");
 		}
@@ -132,14 +130,14 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		}
 		auto label2 = Label::createWithTTF(text, "cartoonist_kooky.ttf", 32);
 		label2->setAnchorPoint(Vec2(0, 1));
-		label2->setPosition(538.0f / 949.0f * visibleSize.width, 150.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label2->setPosition(538.0f / 949.0f * visibleSize.width, 150.0f / 554.0f * visibleSize.height);
 		label2->setColor(Color3B(0xe5, 0x2b, 0x25));
 		label2->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label2);
 
 		auto label3 = Label::createWithTTF("YOU MUST TRY AGAIN!", "cartoonist_kooky.ttf", 32);
 		label3->setAnchorPoint(Vec2(0, 1));
-		label3->setPosition(503.0f / 949.0f * visibleSize.width, 125.0f / 554.0f * visibleSize.height);//!!!!to be modified
+		label3->setPosition(503.0f / 949.0f * visibleSize.width, 125.0f / 554.0f * visibleSize.height);
 		label3->setColor(Color3B(0x4c, 0x42, 0x34));
 		label3->setAlignment(TextHAlignment::CENTER);
 		this->addChild(label3);
