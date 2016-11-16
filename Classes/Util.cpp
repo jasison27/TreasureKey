@@ -129,7 +129,7 @@ std::vector<Vec2> Util::smoothify(std::vector<Vec2>& pts) {
 }
 
 void Util::setMusic(bool flag) {
-	UserDefault::getInstance()->setIntegerForKey("Music", true);
+	UserDefault::getInstance()->setBoolForKey("Music", flag);
 	s_SharedUtil->music = flag;
 }
 
