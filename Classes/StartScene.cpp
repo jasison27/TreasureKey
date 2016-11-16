@@ -132,3 +132,22 @@ void StartScene::onNextLevelCallBack() {
 void StartScene::onRetryLevelCallBack() {
 	touchDraw->getRetry();
 }
+
+void StartScene::onBackToLevelCallBack() {
+	touchDraw->removeFromParentAndCleanup(true);
+	if (current_theme == MAXT && current_level == MAXL) {
+	}
+	else if (current_level < MAXL) {
+		current_level++;
+	}
+	if (current_theme != max_theme) {
+		max_theme = current_theme;
+		UserDefault::getInstance()->setIntegerForKey("MaxTheme", max_theme);
+	}
+	if (current_level != max_level) {
+		max_level = current_level;
+		UserDefault::getInstance()->setIntegerForKey("MaxLevel", max_level);
+	}
+	auto levelLayer = LevelLayer::createWithTheme(this, current_theme);
+	this->addChild(levelLayer);
+}

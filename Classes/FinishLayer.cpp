@@ -24,6 +24,11 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 	oneTouch->setSwallowTouches(true);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
+	auto backToLevelItem = MenuItemImage::create("levels.png", "levelsHover.png", CC_CALLBACK_1(FinishLayer::onBackToLevelCallBack, this));
+	backToLevelItem->setScale(144.0f / 949.0f * visibleSize.width / backToLevelItem->getContentSize().width);
+	backToLevelItem->setAnchorPoint(Vec2(0, 0));
+	backToLevelItem->setPosition(802.0f / 949.0f * visibleSize.width, 300.0f / 554.0f  * visibleSize.height);
+
 	if (sc > 0.7) {
 		if (Util::getInstance()->getMusic()) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -45,7 +50,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		nextItem->setAnchorPoint(Vec2(0, 0));
 		nextItem->setPosition(802.0f / 949.0f * visibleSize.width, 440.0f / 554.0f  * visibleSize.height);
 
-		auto menu = Menu::create(nextItem, NULL);
+		auto menu = Menu::create(nextItem, backToLevelItem, NULL);
 		menu->setPosition(0, 0);
 		this->addChild(menu);
 
@@ -106,7 +111,7 @@ bool FinishLayer::initWithScore(BasicScene * fa, float sc) {
 		retryItem->setAnchorPoint(Vec2(0, 0));
 		retryItem->setPosition(802.0f / 949.0f * visibleSize.width, 440.0f / 554.0f  * visibleSize.height);
 
-		auto menu = Menu::create(retryItem, NULL);
+		auto menu = Menu::create(retryItem, backToLevelItem, NULL);
 		menu->setPosition(0, 0);
 		this->addChild(menu);
 
@@ -159,5 +164,11 @@ void FinishLayer::onNextCallBack(Ref * ref) {
 void FinishLayer::onRetryCallBack(Ref * ref) {
 	Util::getInstance()->playClick();
 	container->onRetryLevelCallBack();
+	this->removeFromParentAndCleanup(true);
+}
+
+void FinishLayer::onBackToLevelCallBack(Ref * ref) {
+	Util::getInstance()->playClick();
+	container->onBackToLevelCallBack();
 	this->removeFromParentAndCleanup(true);
 }

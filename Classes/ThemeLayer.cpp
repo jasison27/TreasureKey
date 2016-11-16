@@ -58,14 +58,15 @@ void ThemeLayer::enterTheme(int tag) {
 
 void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
 	auto item = (MenuItemImage*)pSender;
+	item->setEnabled(false);
 	int tag = item->getTag();
 
 	auto moveTo = MoveTo::create(1, item->getPosition());
 	Vector<SpriteFrame*>animFrames;
 	animFrames.reserve(5);
 	auto animation = Animation::create();
+	char str[20];
 	for (int i = 0; i <= 4; i++) {
-		char str[50];
 		sprintf(str, "Mandy_%02d.png", i);
 		animation->addSpriteFrameWithFileName(str);
 	}

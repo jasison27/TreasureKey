@@ -25,6 +25,7 @@ public:
 	virtual void onFinishDrawCallBack();
 	virtual void onNextLevelCallBack();
 	virtual void onRetryLevelCallBack();
+	virtual void onBackToLevelCallBack(); // in finish layer
 private:
 	int current_theme;
 	int current_level;

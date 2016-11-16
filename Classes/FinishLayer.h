@@ -14,6 +14,7 @@ public:
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onNextCallBack(Ref *ref);
 	void onRetryCallBack(Ref *ref);
+	void onBackToLevelCallBack(Ref *ref);
 private:
 	BasicScene* container;
 };

@@ -85,7 +85,7 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 		animation->addSpriteFrameWithFileName(str);
 	}
 	animation->setRestoreOriginalFrame(true); 
-	animation->setDelayPerUnit(2.0 / 14.0);   
+	animation->setDelayPerUnit(2.0f / 14.0f);   
 	animation->setLoops(-1);    
 	auto animate = Animate::create(animation);
 	timerframe->runAction(animate);
