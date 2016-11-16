@@ -61,7 +61,20 @@ void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
 	int tag = item->getTag();
 
 	auto moveTo = MoveTo::create(1, item->getPosition());
+	Vector<SpriteFrame*>animFrames;
+	animFrames.reserve(5);
+	auto animation = Animation::create();
+	for (int i = 0; i <= 4; i++) {
+		char str[50];
+		sprintf(str, "Mandy_%02d.png", i);
+		animation->addSpriteFrameWithFileName(str);
+	}
+	animation->setDelayPerUnit(2.0f / 14.0f);
+	//animation->setRestoreOriginalFrame(true);
+	//animation->setDelayPerUnit(2.0 / 14.0);
+	//animation->setLoops(-1);
+	auto animate = RepeatForever::create(Animate::create(animation));
 	auto callBack = CallFunc::create(CC_CALLBACK_0(ThemeLayer::enterTheme, this, tag));
-
+	mandy->runAction(animate);
 	mandy->runAction(Sequence::create(moveTo, callBack, nullptr));
 }
