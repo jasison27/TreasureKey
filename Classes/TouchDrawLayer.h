@@ -16,7 +16,7 @@ public:
 	void onTouchMoved(Touch *touch, Event *event);
 	void onTouchEnded(Touch *touch, Event *event);
 	void onCloseCallBack(Ref* pSender);
-	void onDoneCallback(Ref *sender);
+	void onDone();
 	void onSettingCallBack(Ref *sender);
 	float calcSimilarity();
 	void getRetry();
@@ -24,7 +24,7 @@ private:
 	void calcPoints();
 	BasicScene* container;
 	Sprite* cursor;
-	MenuItemImage *doneItem;
+	//MenuItemImage *doneItem;
 	MenuItemImage *closeItem;
 	MenuItemImage *settingItem;
 	Sprite *box;
