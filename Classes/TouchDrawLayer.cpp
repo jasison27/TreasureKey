@@ -32,8 +32,8 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
 	auto cg = Sprite::create("Backgroundforscene4_5_6.png");
-	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
-	cg->setScale(sc);
+	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
+	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg, 0);
 

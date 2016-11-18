@@ -52,8 +52,8 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	}
 
 	auto cg = Sprite::create("Backgroundforscene4_5_6.png");
-	auto sc = std::max(visibleSize.width / cg->getContentSize().width, visibleSize.height / cg->getContentSize().height);
-	cg->setScale(sc);
+	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
+	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(cg);
 
