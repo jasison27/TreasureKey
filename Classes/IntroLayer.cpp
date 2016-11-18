@@ -46,6 +46,7 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	text = Label::createWithTTF(intro[0], "cartoonist_kooky.ttf", 48);
 	text->setAlignment(TextHAlignment::CENTER);
 	text->setPosition(1373.0f / 2017.0f * visibleSize.width, 620.f / 1135.0f * visibleSize.height);
+	text->setScale(visibleSize.width / 1600.f);
 	text->setColor(Color3B(0x4c, 0x42, 0x34));
 	this->addChild(text);
 	textn = 0;
