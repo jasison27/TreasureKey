@@ -20,7 +20,20 @@ enum AudioEnum {
 	MANDY_RUN_EFFECT,
 	START_SCREEN_MUSIC,
 	THEME_PARK_MUSIC,
-	LEVELS_SCREEN_MUSIC
+	LEVELS_SCREEN_MUSIC,
+	ROBERT_BAD,
+	ROBERT_WRONG,
+	MANDY_EXC_CIR,
+	MANDY_GOOD_CIR,
+	MANDY_EXC_TRI,
+	MANDY_GOOD_TRI,
+	MANDY_EXC_SQU,
+	MANDY_GOOD_SQU,
+	MANDY_EXC_HEX,
+	MANDY_GOOD_HEX,
+	MANDY_EXC_OCT,
+	MANDY_GOOD_OCT,
+	MANDY_INTRO
 };
 
 class Util {
@@ -36,9 +49,9 @@ public:
 	void setMusic(bool flag);
 	bool getMusic();
 	void playClick();
-	int startAudio(AudioEnum a);
+	int startAudio(AudioEnum a, bool rep = true);
 	void stopAudio(int id);
-	void startBackgroundMusic(AudioEnum a);
+	void startBackgroundMusic(AudioEnum a, bool rep = true);
 	void stopBackgroudMusic();
 private:
 	bool music;

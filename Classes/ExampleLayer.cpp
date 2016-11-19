@@ -7,6 +7,9 @@ using namespace CocosDenshion;
 
 const double PI = acos(-1);
 int num_vertex[] = { 0,3,4,6,8 };
+const char text[][10] = {
+	"CIRCLE", "TRIANGLE", "SQUARE", "HEXAGON", "OCTAGON"
+};
 ExampleLayer* ExampleLayer::createWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	auto layer = ExampleLayer::create();
 	if (layer->initWithThemeLevel(fa, themen, lev)) return layer;
@@ -83,6 +86,14 @@ bool ExampleLayer::initWithThemeLevel(BasicScene* fa, int themen, int lev) {
 	tme->setColor(Color3B(0x4c, 0x42, 0x34));
 	tme->setPosition(timer->getPosition());
 	this->addChild(tme);
+
+	auto label3 = Label::createWithTTF(text[level - 1], "cartoonist_kooky.ttf", 32);
+	label3->setAnchorPoint(Vec2(1, 0));
+	label3->setPosition(visibleSize.width * 0.99f, 150.0f / 1135.0f  * visibleSize.height);
+	label3->setScale(visibleSize.width / 1300.f);
+	label3->setColor(Color3B(0x4c, 0x42, 0x34));
+	label3->setAlignment(TextHAlignment::CENTER);
+	this->addChild(label3);
 
 	auto skipItem = MenuItemImage::create("Skip.png", "SkipHover.png", CC_CALLBACK_1(ExampleLayer::onSkipCallback, this));
 	skipItem->setScale(119.5f / 968.3f * visibleSize.width / skipItem->getContentSize().width);

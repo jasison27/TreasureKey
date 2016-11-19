@@ -129,31 +129,70 @@ void Util::playClick() {
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-const char audioName[][20] = {
+const char audioName[][30] = {
 	"mandysteps.wav", // MANDY_RUN,
 	"StartScreen.mp3", // START_SCREEN,
 	"ThemePark.mp3", // THEME_PARK,
-	"LevelsScreen.mp3" // LEVELS_SCREEN
+	"LevelsScreen.mp3", // LEVELS_SCREEN
+	"4-RobertoBad.mp3",
+	"4-RobertoWrong.mp3",
+	"3c-MandyExcCircle.mp3",
+	"3c-MandyGoodCircle.mp3",
+	"3a-MandyExcTriangle.mp3",
+	"3b-MandyGoodTriangle.mp3",
+	"3c-MandyExcSquare.mp3",
+	"3d-MandyGoodSquare.mp3",
+	"3e-MandyExcHexagon.mp3",
+	"3f-MandyGoodHexagon.mp3",
+	"3g-MandyExcOct.mp3",
+	"3g-MandyExcOct.mp3",
+	"1-MandyIntro.mp3"
 };
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-const char audioName[][20] = {
+const char audioName[][30] = {
 	"mandysteps.ogg",
 	"StartScreen.mp3", // START_SCREEN,
 	"ThemePark.mp3", // THEME_PARK,
-	"LevelsScreen.mp3" // LEVELS_SCREEN
+	"LevelsScreen.mp3", // LEVELS_SCREEN
+	"4-RobertoBad.mp3",
+	"4-RobertoWrong.mp3",
+	"3c-MandyExcCircle.mp3",
+	"3c-MandyGoodCircle.mp3",
+	"3a-MandyExcTriangle.mp3",
+	"3b-MandyGoodTriangle.mp3",
+	"3c-MandyExcSquare.mp3",
+	"3d-MandyGoodSquare.mp3",
+	"3e-MandyExcHexagon.mp3",
+	"3f-MandyGoodHexagon.mp3",
+	"3g-MandyExcOct.mp3",
+	"3g-MandyExcOct.mp3",
+	"1-MandyIntro.mp3"
 };
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-const char audioName[][20] = {
+const char audioName[][30] = {
 	"mandysteps.caf",
 	"StartScreen.mp3", // START_SCREEN,
 	"ThemePark.mp3", // THEME_PARK,
-	"LevelsScreen.mp3" // LEVELS_SCREEN
+	"LevelsScreen.mp3", // LEVELS_SCREEN
+	"4-RobertoBad.mp3",
+	"4-RobertoWrong.mp3",
+	"3c-MandyExcCircle.mp3",
+	"3c-MandyGoodCircle.mp3",
+	"3a-MandyExcTriangle.mp3",
+	"3b-MandyGoodTriangle.mp3",
+	"3c-MandyExcSquare.mp3",
+	"3d-MandyGoodSquare.mp3",
+	"3e-MandyExcHexagon.mp3",
+	"3f-MandyGoodHexagon.mp3",
+	"3g-MandyExcOct.mp3",
+	"3g-MandyExcOct.mp3",
+	"1-MandyIntro.mp3"
 };
 #endif
 
-int Util::startAudio(AudioEnum a) {
+int Util::startAudio(AudioEnum a, bool rep) {
 	if (s_SharedUtil->music) {
-		return SimpleAudioEngine::getInstance()->playEffect(audioName[a], true);
+		return SimpleAudioEngine::getInstance()->playEffect(audioName[a], rep);
 	}
 	return -1;
 }
@@ -164,9 +203,9 @@ void Util::stopAudio(int id) {
 	}
 }
 
-void Util::startBackgroundMusic(AudioEnum a) {
+void Util::startBackgroundMusic(AudioEnum a, bool rep) {
 	if (s_SharedUtil->music) {
-		SimpleAudioEngine::getInstance()->playBackgroundMusic(audioName[a], true);
+		SimpleAudioEngine::getInstance()->playBackgroundMusic(audioName[a], rep);
 	}
 }
 

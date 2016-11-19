@@ -106,7 +106,7 @@ void StartScene::onIntroCallBack() {
 
 void StartScene::onFinishDrawCallBack() {
 	float score = touchDraw->calcSimilarity();
-	FinishLayer* layer = FinishLayer::createWithScore(this, score);
+	FinishLayer* layer = FinishLayer::createWithScoreThemeLevel(this, score, current_theme, current_level);
 	this->addChild(layer);
 }
 

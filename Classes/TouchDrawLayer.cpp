@@ -83,6 +83,8 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
+	Util::getInstance()->startBackgroundMusic(THEME_PARK_MUSIC);
+
 	return true;
 }
 
@@ -97,12 +99,14 @@ void TouchDrawLayer::calcPoints() {
 }
 
 void TouchDrawLayer::onCloseCallBack(Ref* pSender) {
+	Util::getInstance()->stopBackgroudMusic();
 	Util::getInstance()->playClick();
 	container->onSelectThemeCallBack(0);
 	this->removeFromParentAndCleanup(true);
 }
 
 void TouchDrawLayer::onDone() {
+	Util::getInstance()->stopBackgroudMusic();
 	drawNode->clear();
 	calcPoints();
 	for (size_t i = 1; i < expoints.size(); ++i) {
@@ -119,6 +123,7 @@ void TouchDrawLayer::onDone() {
 }
 
 void TouchDrawLayer::onSettingCallBack(Ref * sender) {
+	Util::getInstance()->stopBackgroudMusic();
 	Util::getInstance()->playClick();
 	container->onSettingCallBack(TOUCHDRAW_LAYER);
 }
@@ -132,6 +137,7 @@ float TouchDrawLayer::calcSimilarity() {
 }
 
 void TouchDrawLayer::getRetry() {
+	Util::getInstance()->stopBackgroudMusic();
 	points.clear();
 	pointsTmp.clear();
 	pointsVec.clear();;

@@ -1,13 +1,14 @@
 #include "IntroLayer.h"
 #include "Util.h"
 
-const char intro[][100] = {
-	"WELCOME TO\nTREASURE KEY.\nLET ME EXPLAIN\nHOW TO PLAY!",
-	"I AM MANDY\nAND NEED HELP\nFROM YOU.",
-	"LONG TIME AGO,\nROBERTO, A PIRATE,\nHID HIS TREASUER\nIN DIFFERENT\nTHEME PARKS.",
-	"THERE ARE FIVE CHESTS\nIN EACH THEME PARK.",
-	"TO UNLOCK THE CHESTS,\nWE NEED TO UNLOCK\nTHE SHAPE OF THE KEY\nBY DRAWING IT OUT.",
-	"THANKS FOR YOUR HELP."
+const char intro[][150] = {
+	"Welcome to\nTreasure Key,\nLet me explain you\nhow to play!",
+	"I am Mandy\nThe Explorer and I was wondering\nif you can help me?",
+	"Long time ago Roberto,\na pirate,\nhide his treasure far far away!",
+	"The only way to find it\nis unlocking the magic shape locks\none by one",
+	"You'll find the magic shape locks\nin the Theme Parks Map!",
+	"You will know\nyou found the treasure\nbecause it has the shape\nof Treasure Key's icon!",
+	"Let's start Playing\nand thank you for all your help!"
 };
 
 IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
@@ -50,7 +51,7 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	text->setColor(Color3B(0x4c, 0x42, 0x34));
 	this->addChild(text);
 	textn = 0;
-	totaln = 6;
+	totaln = 7;
 
 	duration = dt;
 
@@ -69,9 +70,13 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
+	Util::getInstance()->startBackgroundMusic(MANDY_INTRO, false);
+
+	remainingT = duration;
 	this->scheduleUpdate();
 
 	container = fa;
+
 	return true;
 }
 
@@ -105,6 +110,7 @@ void IntroLayer::update(float dt) {
 }
 
 void IntroLayer::finish() {
+	Util::getInstance()->stopBackgroudMusic();
 	container->onRemoveIntroLayerCallBack();
 	this->removeFromParentAndCleanup(true);
 }

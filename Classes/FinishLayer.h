@@ -9,14 +9,16 @@ class FinishLayer : public Layer
 {
 public:
 	CREATE_FUNC(FinishLayer);
-	static FinishLayer* createWithScore(BasicScene* fa, float sc);
-	bool initWithScore(BasicScene* fa, float sc);
+	static FinishLayer* createWithScoreThemeLevel(BasicScene* fa, float sc, int the, int lev);
+	bool initWithScoreThemeLevel(BasicScene* fa, float sc, int the, int lev);
 	bool onTouchBegan(Touch *touch, Event *event);
 	void onNextCallBack(Ref *ref);
 	void onRetryCallBack(Ref *ref);
 	void onBackToLevelCallBack(Ref *ref);
 private:
 	BasicScene* container;
+	int themen, leveln;
+	int effectn;
 };
 
 #endif
