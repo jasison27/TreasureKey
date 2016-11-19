@@ -1,4 +1,5 @@
 #include "StartLayer.h"
+#include "Util.h"
 
 StartLayer * StartLayer::createWithTime(BasicScene* fa, float dt) {
 	auto ret = StartLayer::create();
@@ -7,6 +8,8 @@ StartLayer * StartLayer::createWithTime(BasicScene* fa, float dt) {
 }
 
 bool StartLayer::initWithTime(BasicScene* fa, float dt) {
+	container = fa;
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	remainingT = dt;
@@ -18,7 +21,8 @@ bool StartLayer::initWithTime(BasicScene* fa, float dt) {
 	this->addChild(cg);
 	this->scheduleUpdate();
 
-	container = fa;
+	Util::getInstance()->startBackgroundMusic(START_SCREEN_MUSIC);
+
 	return true;
 }
 
@@ -26,6 +30,7 @@ void StartLayer::update(float dt) {
 	remainingT -= dt;
 	if (remainingT < 0) {
 		remainingT = 0;
+		Util::getInstance()->stopBackgroudMusic();
 		container->onRemoveStartLayerCallBack();
 		this->removeFromParentAndCleanup(true);
 	}

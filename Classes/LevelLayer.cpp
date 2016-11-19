@@ -66,6 +66,8 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 	menu->setPosition(0, 0);
 	this->addChild(menu);
 
+	Util::getInstance()->startBackgroundMusic(LEVELS_SCREEN_MUSIC);
+
 	return true;
 }
 
@@ -74,18 +76,21 @@ void LevelLayer::onSelectLevelCallBack(Ref * ref) {
 	auto item = (MenuItemImage*)ref;
 	int tag = item->getTag();
 
+	Util::getInstance()->stopBackgroudMusic();
 	container->onSelectLevelCallBack(theme, tag);
 	this->removeFromParentAndCleanup(true);
 }
 
 void LevelLayer::onSettingCallBack(Ref * ref) {
 	Util::getInstance()->playClick();
+	Util::getInstance()->stopBackgroudMusic();
 	container->onSettingCallBack(LEVEL_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 
 void LevelLayer::onCloseCallBack(Ref * ref) {
 	Util::getInstance()->playClick();
+	Util::getInstance()->stopBackgroudMusic();
 	container->onRemoveIntroLayerCallBack(); // last theme
 	this->removeFromParentAndCleanup(true);
 }

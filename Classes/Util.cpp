@@ -127,3 +127,49 @@ void Util::playClick() {
 #endif
 	}
 }
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+const char audioName[][20] = {
+	"mandysteps.wav", // MANDY_RUN,
+	"StartScreen.mp3", // START_SCREEN,
+	"ThemePark.mp3", // THEME_PARK,
+	"LevelsScreen.mp3" // LEVELS_SCREEN
+};
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+const char audioName[][20] = {
+	"mandysteps.ogg",
+	"StartScreen.mp3", // START_SCREEN,
+	"ThemePark.mp3", // THEME_PARK,
+	"LevelsScreen.mp3" // LEVELS_SCREEN
+};
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+const char audioName[][20] = {
+	"mandysteps.caf",
+	"StartScreen.mp3", // START_SCREEN,
+	"ThemePark.mp3", // THEME_PARK,
+	"LevelsScreen.mp3" // LEVELS_SCREEN
+};
+#endif
+
+int Util::startAudio(AudioEnum a) {
+	if (s_SharedUtil->music) {
+		return SimpleAudioEngine::getInstance()->playEffect(audioName[a], true);
+	}
+	return -1;
+}
+
+void Util::stopAudio(int id) {
+	if (id != -1) {
+		SimpleAudioEngine::getInstance()->stopEffect(id);
+	}
+}
+
+void Util::startBackgroundMusic(AudioEnum a) {
+	if (s_SharedUtil->music) {
+		SimpleAudioEngine::getInstance()->playBackgroundMusic(audioName[a], true);
+	}
+}
+
+void Util::stopBackgroudMusic() {
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+}

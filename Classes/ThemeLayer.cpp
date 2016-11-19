@@ -42,22 +42,28 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 	menu->setPosition(0, 0);
 	this->addChild(menu);
 
+	Util::getInstance()->startBackgroundMusic(THEME_PARK_MUSIC);
+
 	return true;
 }
 
 void ThemeLayer::onSettingCallBack(Ref * pSender) {
 	Util::getInstance()->playClick();
+	Util::getInstance()->stopBackgroudMusic();
+	Util::getInstance()->stopAudio(mandy_run_effect_id);
 	container->onSettingCallBack(THEME_LAYER);
 	this->removeFromParentAndCleanup(true);
 }
 
 void ThemeLayer::enterTheme(int tag) {
+	Util::getInstance()->stopBackgroudMusic();
+	Util::getInstance()->stopAudio(mandy_run_effect_id);
 	container->onSelectThemeCallBack(tag);
 	this->removeFromParentAndCleanup(true);
 }
 
 void ThemeLayer::onSelectThemeCallBack(Ref * pSender) {
-	Util::getInstance()->playClick();
+	mandy_run_effect_id = Util::getInstance()->startAudio(MANDY_RUN_EFFECT);
 	auto item = (MenuItemImage*)pSender;
 	item->setEnabled(false);
 	int tag = item->getTag();

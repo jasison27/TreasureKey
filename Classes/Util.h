@@ -16,6 +16,13 @@ enum LayerEnum {
 	FINISH_LAYER
 };
 
+enum AudioEnum {
+	MANDY_RUN_EFFECT,
+	START_SCREEN_MUSIC,
+	THEME_PARK_MUSIC,
+	LEVELS_SCREEN_MUSIC
+};
+
 class Util {
 public:
 	static Util* getInstance();
@@ -26,9 +33,13 @@ public:
 	static bool inPolygon(Vec2 p, std::vector<Vec2> &v);
 	static double calcSimilarity(std::vector<Vec2> &a, std::vector<Vec2> &b, Size visibleSize);
 	static std::vector<Vec2> smoothify(std::vector<Vec2> &pts);
-	static void setMusic(bool flag);
-	static bool getMusic();
-	static void playClick();
+	void setMusic(bool flag);
+	bool getMusic();
+	void playClick();
+	int startAudio(AudioEnum a);
+	void stopAudio(int id);
+	void startBackgroundMusic(AudioEnum a);
+	void stopBackgroudMusic();
 private:
 	bool music;
 };

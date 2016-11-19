@@ -17,6 +17,7 @@ private:
 	Sprite* mandy;
 	BasicScene* container;
 	int theme;
+	int mandy_run_effect_id;
 	void enterTheme(int tag);
 };
 
