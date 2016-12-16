@@ -15,10 +15,13 @@ public:
 	void onNextCallBack(Ref *ref);
 	void onRetryCallBack(Ref *ref);
 	void onBackToLevelCallBack(Ref *ref);
+	void removeBubbleThings();
 private:
+	float remainingT;
 	BasicScene* container;
 	int themen, leveln;
 	int effectn;
+	Layer* firstLayer;
 };
 
 #endif

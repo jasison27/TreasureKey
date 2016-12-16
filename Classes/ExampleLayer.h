@@ -24,6 +24,9 @@ private:
 	Sprite *timer;
 	int countEffect;
 	float remainingT;
+	float totalT;
+	int drawedpoint;
+	int npoints;
 	DrawNode *drawNode;
 	std::vector<Vec2> points;
 };

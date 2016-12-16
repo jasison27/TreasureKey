@@ -19,7 +19,7 @@ public:
 private:
 	BasicScene* container;
 	Label* text;
-	int textn;
+	int textn, textaudioid;
 	int totaln;
 	float duration;
 	float remainingT;

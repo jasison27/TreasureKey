@@ -26,6 +26,9 @@ public:
 	virtual void onNextLevelCallBack();
 	virtual void onRetryLevelCallBack();
 	virtual void onBackToLevelCallBack(); // in finish layer
+	virtual void onEnterThemeCallBack();
+	virtual void onEnterIntroCallBack();
+	virtual void onDisplayNextLevelCallBack();
 private:
 	int current_theme;
 	int current_level;

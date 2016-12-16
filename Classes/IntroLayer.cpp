@@ -1,14 +1,16 @@
 #include "IntroLayer.h"
 #include "Util.h"
+//#include "AudioEngine.h"
+//using namespace experimental;
 
-const char intro[][150] = {
-	"Welcome to\nTreasure Key,\nLet me explain you\nhow to play!",
-	"I am Mandy\nThe Explorer and I was wondering\nif you can help me?",
-	"Long time ago Roberto,\na pirate,\nhide his treasure far far away!",
-	"The only way to find it\nis unlocking the magic shape locks\none by one",
-	"You'll find the magic shape locks\nin the Theme Parks Map!",
-	"You will know\nyou found the treasure\nbecause it has the shape\nof Treasure Key's icon!",
-	"Let's start Playing\nand thank you for all your help!"
+const char intro[][100] = {
+	"Welcome to\nTreasure Key.\nlet me explain\nyou how to\nplay!",
+	"I am Mandy\nThe Explorer,\nand I need your\nhelp.",
+	"A long time\nago Roberto\nThe Pirate, hid\nhis treasure\nfar far away!",
+	"The only way\nto find it\nis by unlocking\nthe magic treasure\nchests to find clues.",
+	"In the Theme\nParks Map,\nyou will find\nthe locked treasure\nchests!",
+	"Each treasure\nchest contains\na clue with\nthe shape of the\nnext lock!",
+	"Let's start\nplaying. Thank\nyou for all\nyour help!"
 };
 
 IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
@@ -18,6 +20,7 @@ IntroLayer * IntroLayer::createWithTime(BasicScene* fa, float dt) {
 }
 
 void IntroLayer::onSettingCallBack(Ref * ref) {
+	Util::getInstance()->stopBackgroudMusic();
 	Util::getInstance()->playClick();
 	container->onSettingCallBack(INTRO_LAYER);
 	this->removeFromParentAndCleanup(true);
@@ -25,8 +28,9 @@ void IntroLayer::onSettingCallBack(Ref * ref) {
 
 bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+	totaln = 7;
 
-	auto cg = Sprite::create("Backgroundforscene1_2.png");
+	auto cg = Sprite::create("Backgroundforscene2.png");
 	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
 	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
@@ -51,7 +55,6 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	text->setColor(Color3B(0x4c, 0x42, 0x34));
 	this->addChild(text);
 	textn = 0;
-	totaln = 7;
 
 	duration = dt;
 
@@ -61,12 +64,20 @@ bool IntroLayer::initWithTime(BasicScene* fa, float dt) {
 	oneTouch->onTouchEnded = CC_CALLBACK_2(IntroLayer::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oneTouch, this);
 
-	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(IntroLayer::onSettingCallBack, this));
-	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
-	settingItem->setAnchorPoint(Vec2(0, 0));
-	settingItem->setPosition( 1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+//	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(IntroLayer::onSettingCallBack, this));
+//	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+//	settingItem->setAnchorPoint(Vec2(0, 0));
+//	settingItem->setPosition( 1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
 
-	auto menu = Menu::create(settingItem, NULL);
+	auto menu = Menu::create();
+
+	auto settingItem = MenuItemImage::create("home.png", "homeHover.png", CC_CALLBACK_1(IntroLayer::onSettingCallBack, this));
+	settingItem->setScale(122.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	settingItem->setAnchorPoint(Vec2(0, 1));
+	settingItem->setPosition(8.0f / 2017.0f * visibleSize.width, (1 - 5.0f / 1135.0f)  * visibleSize.height);
+	menu->addChild(settingItem);
+
+	//auto menu = Menu::create(settingItem, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 

@@ -14,7 +14,9 @@ public:
 	void update(float dt) override;
 private:
 	BasicScene* container;
+	float remainingT2;
 	float remainingT;
+	Sprite* mandy;
 };
 
 #endif

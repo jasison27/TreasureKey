@@ -20,7 +20,7 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto cg = Sprite::create("Backgroundforscene4_5_6.png");
+	auto cg = Sprite::create("Backgroundforscenepolygon.png");
 	cg->setScaleX(visibleSize.width / cg->getContentSize().width);
 	cg->setScaleY(visibleSize.height / cg->getContentSize().height);
 	cg->setPosition(visibleSize.width / 2, visibleSize.height / 2);
@@ -51,17 +51,17 @@ bool LevelLayer::initWithTheme(BasicScene * fa, int themen) {
 		this->addChild(locked);
 	}
 
-	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(LevelLayer::onSettingCallBack, this));
-	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
-	settingItem->setAnchorPoint(Vec2(0, 0));
-	settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+	auto settingItem = MenuItemImage::create("home.png", "homeHover.png", CC_CALLBACK_1(LevelLayer::onSettingCallBack, this));
+	settingItem->setScale(122.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	settingItem->setAnchorPoint(Vec2(0, 1));
+	settingItem->setPosition(8.0f / 2017.0f * visibleSize.width, (1-5.0f / 1135.0f)  * visibleSize.height);
 	menu->addChild(settingItem);
 
-	auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(LevelLayer::onCloseCallBack, this));
-	closeItem->setScale(103.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
-	closeItem->setAnchorPoint(Vec2(0, 0));
-	closeItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 1015.0f / 1135.0f  * visibleSize.height);
-	menu->addChild(closeItem);
+	//auto closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(LevelLayer::onCloseCallBack, this));
+	//closeItem->setScale(103.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
+	//closeItem->setAnchorPoint(Vec2(0, 0));
+	//closeItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 1015.0f / 1135.0f  * visibleSize.height);
+	//menu->addChild(closeItem);
 
 	menu->setPosition(0, 0);
 	this->addChild(menu);

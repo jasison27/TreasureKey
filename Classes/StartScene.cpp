@@ -7,6 +7,7 @@
 #include "ExampleLayer.h"
 #include "TouchDrawLayer.h"
 #include "FinishLayer.h"
+#include "DisplayNextLayer.h"
 
 const int numFig = 5;
 const double levelPosX[] = { 100, 190, 340, 550, 770 };
@@ -57,15 +58,17 @@ void StartScene::onHelpCloseCallBack(LayerEnum lenum) {
 }
 
 void StartScene::onRemoveStartLayerCallBack() {
-	if (!UserDefault::getInstance()->getBoolForKey("Played")) {
-		UserDefault::getInstance()->setBoolForKey("Played", true);
-		IntroLayer* intro = IntroLayer::createWithTime(this, 4.0f);
-		this->addChild(intro);
-	}
-	else {
-		ThemeLayer* theme = ThemeLayer::createWithTheme(this, max_theme);
-		this->addChild(theme);
-	}
+	HelpLayer* help = HelpLayer::createWithOption(this, START_LAYER);
+	this->addChild(help);
+	//if (!UserDefault::getInstance()->getBoolForKey("Played")) {
+	//	UserDefault::getInstance()->setBoolForKey("Played", true);
+	//	IntroLayer* intro = IntroLayer::createWithTime(this, 2.0f);
+	//	this->addChild(intro);
+	//}
+	//else {
+	//	ThemeLayer* theme = ThemeLayer::createWithTheme(this, max_theme);
+	//	this->addChild(theme);
+	//}
 }
 
 void StartScene::onRemoveIntroLayerCallBack() {
@@ -111,7 +114,45 @@ void StartScene::onFinishDrawCallBack() {
 }
 
 void StartScene::onNextLevelCallBack() {
+	//touchDraw->removeFromParentAndCleanup(true);
+	//if (current_theme == MAXT && current_level == MAXL) {
+	//}
+	//else if (current_level < MAXL) {
+	//	current_level++;
+	//}
+	//if (current_theme != max_theme) {
+	//	max_theme = current_theme;
+	//	UserDefault::getInstance()->setIntegerForKey("MaxTheme", max_theme);
+	//}
+	//if (current_level != max_level) {
+	//	max_level = current_level;
+	//	UserDefault::getInstance()->setIntegerForKey("MaxLevel", max_level);
+	//}
+	example = ExampleLayer::createWithThemeLevel(this, current_theme, current_level);
+	this->addChild(example);
+}
+
+void StartScene::onRetryLevelCallBack() {
+	touchDraw->getRetry();
+}
+
+void StartScene::onBackToLevelCallBack() {
 	touchDraw->removeFromParentAndCleanup(true);
+	auto levelLayer = LevelLayer::createWithTheme(this, current_theme);
+	this->addChild(levelLayer);
+}
+
+void StartScene::onEnterThemeCallBack() {
+	ThemeLayer* theme = ThemeLayer::createWithTheme(this, max_theme);
+	this->addChild(theme);
+}
+
+void StartScene::onEnterIntroCallBack() {
+	IntroLayer* intro = IntroLayer::createWithTime(this, 2.0f);
+	this->addChild(intro);
+}
+
+void StartScene::onDisplayNextLevelCallBack() {
 	if (current_theme == MAXT && current_level == MAXL) {
 	}
 	else if (current_level < MAXL) {
@@ -125,16 +166,7 @@ void StartScene::onNextLevelCallBack() {
 		max_level = current_level;
 		UserDefault::getInstance()->setIntegerForKey("MaxLevel", max_level);
 	}
-	example = ExampleLayer::createWithThemeLevel(this, current_theme, current_level);
-	this->addChild(example);
-}
-
-void StartScene::onRetryLevelCallBack() {
-	touchDraw->getRetry();
-}
-
-void StartScene::onBackToLevelCallBack() {
 	touchDraw->removeFromParentAndCleanup(true);
-	auto levelLayer = LevelLayer::createWithTheme(this, current_theme);
-	this->addChild(levelLayer);
+	DisplayNextLayer* displaynext = DisplayNextLayer::createWithThemeLevel(this, current_theme, current_level);
+	this->addChild(displaynext);
 }

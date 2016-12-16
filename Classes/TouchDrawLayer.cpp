@@ -67,19 +67,26 @@ bool TouchDrawLayer::initWithNothing(BasicScene* fa, std::vector<Vec2> &pts) {
 //	doneItem->setScale(129.0f / 949.0f * visibleSize.width / doneItem->getContentSize().width);
 //	doneItem->setAnchorPoint(Vec2(0, 0));
 //	doneItem->setPosition( 11.3f / 949.0f * visibleSize.width, 462.0f / 554.0f * visibleSize.height);
+	auto menu = Menu::create();
 
 	closeItem = MenuItemImage::create("Exit.png", "ExitHover.png", CC_CALLBACK_1(TouchDrawLayer::onCloseCallBack, this));
 	closeItem->setScale(103.0f / 2017.0f * visibleSize.width / closeItem->getContentSize().width);
 	closeItem->setAnchorPoint(Vec2(0, 0));
 	closeItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 1015.0f / 1135.0f  * visibleSize.height);
+	menu->addChild(closeItem);
 
-	settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(TouchDrawLayer::onSettingCallBack, this));
-	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
-	settingItem->setAnchorPoint(Vec2(0, 0));
-	settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+	settingItem = MenuItemImage::create("home.png", "homeHover.png", CC_CALLBACK_1(TouchDrawLayer::onSettingCallBack, this));
+	settingItem->setScale(122.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	settingItem->setAnchorPoint(Vec2(0, 1));
+	settingItem->setPosition(8.0f / 2017.0f * visibleSize.width, (1 - 5.0f / 1135.0f)  * visibleSize.height);
+	menu->addChild(settingItem);
+
+	//settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	//settingItem->setAnchorPoint(Vec2(0, 0));
+	//settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
 
 //	auto menu = Menu::create(doneItem, closeItem, settingItem, NULL);
-	auto menu = Menu::create(closeItem, settingItem, NULL);
+	//auto menu = Menu::create(closeItem, settingItem, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
@@ -126,6 +133,7 @@ void TouchDrawLayer::onSettingCallBack(Ref * sender) {
 	Util::getInstance()->stopBackgroudMusic();
 	Util::getInstance()->playClick();
 	container->onSettingCallBack(TOUCHDRAW_LAYER);
+	this->removeFromParentAndCleanup(true);
 }
 
 float TouchDrawLayer::calcSimilarity() {

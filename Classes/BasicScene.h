@@ -20,6 +20,9 @@ public:
 	virtual void onNextLevelCallBack() = 0;
 	virtual void onRetryLevelCallBack() = 0;
 	virtual void onBackToLevelCallBack() = 0;
+	virtual void onEnterThemeCallBack() = 0;
+	virtual void onEnterIntroCallBack() = 0;
+	virtual void onDisplayNextLevelCallBack() = 0;
 };
 
 #endif

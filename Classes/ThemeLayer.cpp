@@ -33,11 +33,11 @@ bool ThemeLayer::initWithTheme(BasicScene* fa, int themen) {
 	poly->setPosition(609.0f / 2017.0f * visibleSize.width, 909.0f / 1135.0f * visibleSize.height);
 	menu->addChild(poly);
 
-	auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(ThemeLayer::onSettingCallBack, this));
-	settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
-	settingItem->setAnchorPoint(Vec2(0, 0));
-	settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
-	menu->addChild(settingItem);
+	//auto settingItem = MenuItemImage::create("Settings.png", "SettingsHover.png", CC_CALLBACK_1(ThemeLayer::onSettingCallBack, this));
+	//settingItem->setScale(103.0f / 2017.0f * visibleSize.width / settingItem->getContentSize().width);
+	//settingItem->setAnchorPoint(Vec2(0, 0));
+	//settingItem->setPosition(1898.0f / 2017.0f * visibleSize.width, 15.0f / 1135.0f  * visibleSize.height);
+	//menu->addChild(settingItem);
 
 	menu->setPosition(0, 0);
 	this->addChild(menu);

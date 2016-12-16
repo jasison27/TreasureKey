@@ -22,6 +22,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/StartScene.cpp \
                    ../../Classes/ThemeLayer.cpp \
                    ../../Classes/TouchDrawLayer.cpp \
+                   ../../Classes/DisplayNextLayer.cpp \
                    ../../Classes/Util.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
